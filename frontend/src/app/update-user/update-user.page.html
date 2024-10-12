@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Edit User</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="updateForm" (ngSubmit)="updateUser()">
+    <ion-item>
+      <ion-label position="floating">Username</ion-label>
+      <ion-input formControlName="username"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Email</ion-label>
+      <ion-input formControlName="email"></ion-input>
+      <!-- Mostrar el error de validación del email -->
+      <ion-text *ngIf="updateForm.get('email')?.invalid && updateForm.get('email')?.touched">
+        <p *ngIf="updateForm.get('email')?.hasError('required')">Email is required.</p>
+        <p *ngIf="updateForm.get('email')?.hasError('email')">Please enter a valid email.</p>
+      </ion-text>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Password</ion-label>
+      <ion-input type="password" formControlName="password"></ion-input>
+      <!-- Mostrar error de la contraseña -->
+      <ion-text *ngIf="updateForm.get('password')?.invalid && updateForm.get('password')?.touched">
+        <p *ngIf="updateForm.get('password')?.hasError('required')">Password is required.</p>
+        <p *ngIf="updateForm.get('password')?.hasError('minlength')">Password must be at least 6 characters long.</p>
+      </ion-text>
+    </ion-item>
+
+    <ion-button expand="full" type="submit" [disabled]="!updateForm.valid">Update</ion-button>
+  </form>
+
+  <!-- Debugging the form status -->
+  <ion-item>
+    <ion-label>Status</ion-label>
+    <ion-text>
+      <p *ngIf="updateForm.invalid">Form is invalid</p>
+      <p *ngIf="updateForm.valid">Form is valid</p>
+    </ion-text>
+  </ion-item>
+
+  <!-- Debugging individual control statuses -->
+  <ion-item>
+    <ion-label>Username valid:</ion-label>
+    <ion-text>{{ updateForm.get('username')?.valid }}</ion-text>
+  </ion-item>
+  <ion-item>
+    <ion-label>Email valid:</ion-label>
+    <ion-text>{{ updateForm.get('email')?.valid }}</ion-text>
+  </ion-item>
+  <ion-item>
+    <ion-label>Password valid:</ion-label>
+    <ion-text>{{ updateForm.get('password')?.valid }}</ion-text>
+  </ion-item>
+</ion-content>

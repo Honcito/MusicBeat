@@ -17,8 +17,10 @@
       <ion-label>
         <h1>{{user.username}}</h1>
         <p>{{user.email}}</p>
-        <ion-button (click)="deleteUser(user.id)">Delete</ion-button>
       </ion-label>
+      <ion-button (click)="deleteUser(user.id)" color="danger">Delete</ion-button>
+      <!-- Botón de actualización que redirige a la página de actualización de usuario -->
+      <ion-button [routerLink]="['/update-user', user.id]" color="primary">Update</ion-button>
     </ion-item>
   </ion-list>
 
