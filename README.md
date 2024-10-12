@@ -91,7 +91,7 @@ Explain what these tests verify and why.
 ## API Endpints Documentation 📑
 To view and test all API endpoints, check out the Postman collection I've prepared:
 
-**[Music Beat API Endpoints Documentation](https://www.postman.com/hong66-2174/workspace/hong/collection/33378802-39931326-2a42-453b-9931-bfac29b6f89e?action=share&creator=33378802)**
+**[Music Beat API Endpoints Documentation](https://www.postman.com/hong66-2174/public-workspace/documentation/xdnb03l/music-beat-users?workspaceId=dc6c7131-6e30-4ca2-85a3-747039c3d3f2)**
 
 
 ## Deployment📦
@@ -112,15 +112,9 @@ _Add additional notes on how to deploy._
 ## Author ✒️
 
 
-* **Víctor Hong Gragera** - *Initial Work* - (https://github.com/Honcito/Workspace-Corner.git)
+* **Víctor Hong Gragera** - *Initial Work* - (https://github.com/Honcito/MusicBeat.git)
 
 =======
-Puedes encontrar mucho más de cómo utilizar este proyecto en nuestra [Wiki](https://github.com/tu/proyecto/wiki)
-
-## Versionado 📌
-
-Usamos [SemVer](http://semver.org/) para el versionado. Para todas las versiones disponibles, mira los [tags en este repositorio](https://github.com/tu/proyecto/tags).
-
 
 ## License 📄
 
