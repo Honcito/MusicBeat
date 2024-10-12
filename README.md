@@ -56,9 +56,10 @@ npm install
 ```
 
 # Set up the database:
-# Use music_beat.sql located on proyect root to create de database and tables related to the proyect.
 
-# Update the Sequelize configuration file with your database credentials.
+* Use music_beat.sql located on proyect root to create de database and tables related to the proyect.
+
+* Update the Sequelize configuration file with your database credentials.
 
 # Start the backend server:
 ```
@@ -113,7 +114,7 @@ _Add additional notes on how to deploy._
 
 ## License 📄
 
-This project is licensed under (Your License) - see the LICENSE.md file for details.
+This project is licensed under the GNU General Public License v3.0 - see the [LICENSE.md](./LICENSE.md) file for details.
 
 ## Acknowledgments 🎁
 
