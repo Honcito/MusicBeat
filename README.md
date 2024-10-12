@@ -79,11 +79,6 @@ npm install
 ionic serve
 ```
 
-# Running the Tests ⚙️
-Explain how to run automated tests for this system.
-
-# Analyze End-to-End Tests 🔩
-Explain what these tests verify and why.
 
 # Coding Style Tests ⌨️
 Explain what these tests verify and why.
