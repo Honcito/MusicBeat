@@ -56,9 +56,10 @@ npm install
 ```
 
 # Set up the database:
-# Use music_beat.sql located on proyect root to create de database and tables related to the proyect.
 
-# Update the Sequelize configuration file with your database credentials.
+* Use music_beat.sql located on proyect root to create de database and tables related to the proyect.
+
+* Update the Sequelize configuration file with your database credentials.
 
 # Start the backend server:
 ```
