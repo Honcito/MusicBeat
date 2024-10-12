@@ -1,0 +1,38 @@
+.background-content {
+    background-image: url('../../assets/images/girlheadphone.jpg'); /* Ruta correcta */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh; /* Usar 100vh para asegurarse que ocupe todo el alto del viewport */
+    width: 100%;
+  }
+  
+  ion-list {
+    background-color: transparent; /* Fondo transparente para la lista */
+  }
+  
+  ion-item {
+    background-color: rgba(255, 255, 255, 0.8); /* Fondo semi-transparente para los ítems de la lista */
+    margin: 5px 0; /* Espaciado entre los ítems */
+    padding: 10px;
+  }
+  
+  .add-user-btn {
+    --background: #087029; /* Color de fondo del botón */
+    --color: white; /* Color del texto del botón */
+    --border-radius: 8px;
+    --padding-start: 16px;
+    --padding-end: 16px;
+    display: block;
+    margin: 20px auto; /* Centra el botón y le da un margen superior e inferior */
+    text-align: center;
+    font-size: 14px;
+  }
+  
+  @media (max-width: 600px) {
+    .background-content {
+      background-size: contain;
+      background-position: center;
+    }
+  }
+  
