@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Añadir Usuario</ion-title>
+    <ion-title>ADD USER</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -21,6 +21,9 @@
       <ion-input type="password" [(ngModel)]="user.password" name="password" required></ion-input>
     </ion-item>
 
-    <ion-button class="small-button" type="submit">Add</ion-button>
+    <!-- Contenedor para centrar el botón -->
+    <div class="center-button">
+      <ion-button class="large-button" type="submit">Add</ion-button>
+    </div>
   </form>
 </ion-content>

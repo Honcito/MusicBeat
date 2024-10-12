@@ -1,8 +1,34 @@
-.small-button {
-    --padding-start: 10px;
-    --padding-end: 10px;
-    --border-radius: 8px;
-    font-size: 12px;
-    height: 35px;
+   ion-header {
+    background-color: #000000ae; 
+    --ion-background-color: #00000095;
+    text-align: center;
+    
   }
+  
+  ion-card-header {
+    text-align: center;
+    padding: 10px 0;
+  }
+  
+  ion-card-content {
+    padding: 10px;
+  }
+  
+  ion-title {
+    color: #ffffff; /* Cambia el color del texto específicamente para el título */
+    font-weight: bold; /* Ejemplo de otro estilo para que se vea más destacado */
+  }
+
+  .center-button {
+    display: flex;
+    justify-content: center; /* Centrar horizontalmente */
+    margin-top: 20px; /* Añadir margen superior */
+  }
+  
+  .large-button {
+    width: 100px; /* Ajusta el ancho del botón */
+    font-size: 18px; /* Aumenta el tamaño del texto */
+    padding: 10px 0; /* Ajusta el padding */
+  }
+  
   

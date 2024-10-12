@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Edit User</ion-title>
+    <ion-title>EDIT USER</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -31,7 +31,9 @@
       </ion-text>
     </ion-item>
 
-    <ion-button expand="full" type="submit" [disabled]="!updateForm.valid">Update</ion-button>
+    <div class="center-button">
+    <ion-button class="large-button" type="submit" [disabled]="!updateForm.valid">Update</ion-button>
+    </div>
   </form>
 
   <!-- Debugging the form status -->

@@ -1,58 +1,63 @@
-.background-content {
-    background-image: url('../../assets/images/girlheadphone.jpg'); /* Ruta correcta */
-    background-size: cover;
+/* Estilos para la lista de usuarios */
+ion-list {
+  background-image: url('../../assets/images/girlheadphone.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0); /* Fondo transparente */
+  padding: 0;
+  height: auto; /* Aseguramos que la lista ocupe todo el espacio necesario */
+}
+
+/* Estilos para cada item en la lista */
+ion-item {
+  background-color: rgba(255, 255, 255, 0); /* Fondo semi-transparente para los ítems */
+  margin: 5px 0; /* Espaciado entre ítems */
+  padding: 15px; /* Espaciado interno de los ítems */
+}
+
+/* Estilos para el botón 'Add User' */
+.add-user-btn {
+  --background: #087029; /* Color de fondo del botón */
+  --color: white; /* Color del texto del botón */
+  --border-radius: 8px;
+  --padding-start: 16px;
+  --padding-end: 16px;
+  display: block;
+  margin: 10px auto; /* Centra el botón y le da un margen superior e inferior */
+  text-align: center;
+  font-size: 14px;
+  z-index: 999; /* Aseguramos que el botón esté encima de otros elementos */
+}
+
+/* Estilos específicos para el contenedor del botón */
+.button-background {
+  padding: 10px;
+  text-align: center;
+  background-color: transparent;
+  z-index: 999; /* Aseguramos que el contenedor del botón esté por encima */
+}
+
+
+
+/* Estilos para el encabezado */
+ion-header {
+  background-color: #000000ae;
+  --ion-background-color: #00000095;
+  text-align: center;
+}
+
+/* Estilos para el título */
+ion-title {
+  color: #ffffff; /* Color blanco para el título */
+  font-weight: bold;
+}
+
+/* Recomendación para una vista móvil */
+@media (max-width: 600px) {
+  .background-content {
+    background-size: contain;
     background-position: center;
-    background-repeat: no-repeat;
-    height: 100vh; /* Usar 100vh para asegurarse que ocupe todo el alto del viewport */
-    width: 100%;
   }
-  
-  ion-list {
-    background-color: transparent; /* Fondo transparente para la lista */
-  }
-  
-  ion-item {
-    background-color: rgba(255, 255, 255, 0.8); /* Fondo semi-transparente para los ítems de la lista */
-    margin: 5px 0; /* Espaciado entre los ítems */
-    padding: 10px;
-  }
-  
-  .add-user-btn {
-    --background: #087029; /* Color de fondo del botón */
-    --color: white; /* Color del texto del botón */
-    --border-radius: 8px;
-    --padding-start: 16px;
-    --padding-end: 16px;
-    display: block;
-    margin: 20px auto; /* Centra el botón y le da un margen superior e inferior */
-    text-align: center;
-    font-size: 14px;
-  }
-  
-  @media (max-width: 600px) {
-    .background-content {
-      background-size: contain;
-      background-position: center;
-    }
-  }
-  
-  ion-header {
-    background-color: #000000ae; 
-    --ion-background-color: #00000095;
-    text-align: center;
-    
-  }
-  
-  ion-card-header {
-    text-align: center;
-    padding: 10px 0;
-  }
-  
-  ion-card-content {
-    padding: 10px;
-  }
-  
-  ion-title {
-    color: #ffffff; /* Cambia el color del texto específicamente para el título */
-    font-weight: bold; /* Ejemplo de otro estilo para que se vea más destacado */
-  }
+}
