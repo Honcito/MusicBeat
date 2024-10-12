@@ -6,9 +6,45 @@
 
 <ion-content>
   <div id="container">
-    <ion-card>
-      <strong>Bienvenido a Music Beat</strong>
-      <p>Explora las mejores canciones y artistas.</p>
-    </ion-card>
+    <!-- Tarjeta de bienvenida -->
+    <div class="welcome-card">
+      <ion-card>
+        <strong>Welcome to Music Beat</strong>
+        <p>Explore the best songs and artists.</p>
+      </ion-card>
+    </div>
+
+    <!-- Carrusel horizontal de tarjetas -->
+    <div class="carousel-container">
+      <ion-card class="carousel-card">
+        <img src="../assets/images/girlheadphone.jpg" class="carousel-img" />
+        <ion-card-header>
+          <ion-card-title>Best of 2024</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          Discover the top songs by rating.
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card class="carousel-card">
+        <img src="../assets/images/vinyl.jpg" class="carousel-img" />
+        <ion-card-header>
+          <ion-card-title>Trending Now</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          Check out what's hot right now.
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card class="carousel-card">
+        <img src="../assets/images/trending.jpg" class="carousel-img" />
+        <ion-card-header>
+          <ion-card-title>Live Concerts Info</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          Explore news live concerts.
+        </ion-card-content>
+      </ion-card>
+    </div>
   </div>
 </ion-content>

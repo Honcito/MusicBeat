@@ -1,33 +1,57 @@
 #container {
   background-image: url('/assets/images/homeBackground.jpg');
-  background-size: cover; /* Para cubrir completamente el área */
-  background-position: center; /* Centra la imagen */
-  background-repeat: no-repeat; /* Evita que se repita */
-  height: 100%; /* Asegura que cubra el área del ion-content */
-  width: 100%; /* Asegura que cubra el ancho del ion-content */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100%;
+  width: 100%;
   text-align: center;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  color: rgb(42, 86, 244); /* Cambia el color del texto si es necesario para la legibilidad */
-  
+  position: relative;
 }
 
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
+.welcome-card {
+  margin-bottom: 20px;
 }
 
-#container p {
-  font-size: 16px;
-  line-height: 22px;
-  color: #8c8c8c; /* Cambia este color si quieres que resalte más */
-  margin: 0;
+.carousel-container {
+  display: flex;
+  justify-content: flex-start;
+  overflow-x: scroll; /* Habilita el desplazamiento horizontal */
+  gap: 20px;
+  padding: 10px 0;
+  scroll-behavior: smooth; /* Desplazamiento suave */
+  -webkit-overflow-scrolling: touch; /* Soporte para desplazamiento táctil nativo en móviles */
+  scrollbar-width: none; /* Oculta la barra de desplazamiento en Firefox */
 }
 
-#container a {
-  text-decoration: none;
-  color: #007aff; /* Cambia el color del enlace si lo deseas */
+.carousel-container::-webkit-scrollbar {
+  width: 0; /* Oculta la barra de desplazamiento en Webkit (Chrome, Safari) */
+}
+
+.carousel-card {
+  width: 250px;
+  height: 300px;
+  flex: 0 0 auto;
+  margin: 0 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  background-color: white;
+}
+
+.carousel-img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+ion-card-header {
+  text-align: center;
+  padding: 10px 0;
+}
+
+ion-card-content {
+  padding: 10px;
 }
