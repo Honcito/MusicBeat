@@ -16,9 +16,15 @@ export class UsersPage implements OnInit {
   }
 
   loadUsers() {
-    this.userService.getAllUsers().subscribe((data) => {
-      this.users = data;  // Populate the users array
-    });
+    this.userService.getAllUsers().subscribe(
+      (data) => {
+        console.log('Usuarios recibidos:', data);  // Verifica los datos en la consola
+        this.users = data;  // Aquí asignas los datos a la variable 'users'
+      },
+      (error) => {
+        console.error('Error al cargar usuarios:', error);  // Aquí capturas los errores si ocurren
+      }
+    );
   }
 
   deleteUser(id: number) {

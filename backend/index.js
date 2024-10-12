@@ -4,6 +4,18 @@ const app = express();
 
 app.use(express.json());
 
+const cors = require('cors');
+
+// Configura CORS
+const corsOptions = {
+  origin: 'http://localhost:8100', // Aquí debes poner la URL de tu frontend
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+};
+
+// Usar CORS con las opciones configuradas
+app.use(cors(corsOptions));
+
 app.use(express.urlencoded({ extended: true }));
 
 // Implementation Sequelize
