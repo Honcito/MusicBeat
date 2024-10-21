@@ -22,6 +22,8 @@ export class CreateUsersPage {
     this.userService.createUser(this.user).subscribe(
       (response) => {
         console.log('Usuario creado', response);
+        // Restablece los campos del formulario después de crear el usuario
+        this.resetForm();
         // Redirige a la página de usuarios después de crear el usuario
         this.router.navigate(['/users']);
       },
@@ -29,5 +31,14 @@ export class CreateUsersPage {
         console.error('Error al crear el usuario', error);
       }
     );
+  }
+
+  resetForm() {
+    // Restablece el objeto `user` a los valores iniciales
+    this.user = {
+      username: '',
+      email: '',
+      password: ''
+    };
   }
 }

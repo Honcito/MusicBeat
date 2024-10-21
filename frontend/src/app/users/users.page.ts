@@ -13,18 +13,18 @@ export class UsersPage implements OnInit {
 
   ngOnInit() {
     this.loadUsers();
+   
+  }
+
+  ionViewWillEnter(){
+   this.loadUsers();
   }
 
   loadUsers() {
-    this.userService.getAllUsers().subscribe(
-      (data) => {
-        console.log('Usuarios recibidos:', data);  // Verifica los datos en la consola
-        this.users = data;  // Aquí asignas los datos a la variable 'users'
-      },
-      (error) => {
-        console.error('Error al cargar usuarios:', error);  // Aquí capturas los errores si ocurren
-      }
-    );
+    this.userService.getAllUsers().subscribe((data: any[]) => {
+        this.users = data;
+      });
+      
   }
 
   deleteUser(id: number) {
