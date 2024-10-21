@@ -1,14 +1,14 @@
 const express = require("express");
+const cors = require('cors');
+const db = require("./models");
 
 const app = express();
-
 app.use(express.json());
-
-const cors = require('cors');
+app.use(express.urlencoded({ extended: true }));
 
 // Configura CORS
 const corsOptions = {
-  origin: 'http://localhost:8100', // Aquí debes poner la URL de tu frontend
+  origin: 'http://localhost:8100', // Asegúrate de que esto sea correcto
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 };
@@ -16,23 +16,35 @@ const corsOptions = {
 // Usar CORS con las opciones configuradas
 app.use(cors(corsOptions));
 
-app.use(express.urlencoded({ extended: true }));
-
-// Implementation Sequelize
-const db = require("./models");
-
-db.sequelize.sync({ alter: true}).then(() => {
+// Sincroniza la base de datos
+db.sequelize.sync({ alter: true }).then(() => {
     console.log("Sync and alter table if necessary.");
     console.log("Initializing backend.");
+
+    // Verifica la conexión a la base de datos
+    db.sequelize.authenticate()
+        .then(() => {
+            console.log('Connection to the database has been established successfully.');
+        })
+        .catch(err => {
+            console.error('Unable to connect to the database:', err);
+        });
 });
 
 // A simple route
 app.get("/", (req, res) => {
-    res.json({ message: "Welcome to Music Beat"})
+    res.json({ message: "Welcome to Music Beat" });
 });
 
 // Import routes into index.js
 require("./routes/user.routes")(app);
+require("./routes/song.routes")(app); // Asegúrate de que este archivo existe y está configurado
+
+// Middleware para manejar errores
+app.use((err, req, res, next) => {
+    console.error(err.stack); // Imprime el error en la consola
+    res.status(500).send({ message: "Something went wrong!" }); // Enviar respuesta de error
+});
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
