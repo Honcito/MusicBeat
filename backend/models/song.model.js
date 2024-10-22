@@ -48,4 +48,4 @@ module.exports = (sequelize, Sequelize) => {
 };
 
 // Exportar el modelo
-//module.exports = Employee; // Esta línea debe estar al final
+//module.exports = Songs; // Esta línea debe estar al final

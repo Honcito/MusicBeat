@@ -38,7 +38,8 @@ app.get("/", (req, res) => {
 
 // Import routes into index.js
 require("./routes/user.routes")(app);
-require("./routes/song.routes")(app); // Asegúrate de que este archivo existe y está configurado
+require("./routes/song.routes")(app);
+require("./routes/playlist.routes")(app);
 
 // Middleware para manejar errores
 app.use((err, req, res, next) => {
