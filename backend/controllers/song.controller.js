@@ -1,5 +1,5 @@
 const db = require("../models");
-const Song = db.songs;
+const Song = db.Song;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new Song.
@@ -18,7 +18,7 @@ exports.create = (req, res) => {
         album: req.body.album,
         length: req.body.length,
         url: req.body.url,
-        albumCover: req.body.albumCover // Cambiado a albumCover para que coincida con el modelo
+        cover: req.body.cover
     };
 
     // Save Song in the database

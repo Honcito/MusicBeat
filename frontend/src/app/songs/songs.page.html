@@ -10,4 +10,30 @@
       <ion-title size="large">SONGS</ion-title>
     </ion-toolbar>
   </ion-header>
+
+   <!-- Botón para redirigir a la página de creación de usuario -->
+   <div class="button-background">
+    <ion-item class="button">
+      <ion-button class="add-user-btn" size="small" routerLink="/create-songs">Add Song</ion-button>
+    </ion-item>
+  </div>
+
+  <!-- Lista de usuarios -->
+  <ion-list class="list-background">
+    <ion-item *ngFor="let song of songs">
+      <ion-label class="transparent-label">
+        <h1>{{song.title}}</h1>
+        <p>{{song.artist}}</p>
+        <p>{{song.album}}</p>
+        <p>{{song.length}}</p>
+        <p>{{song.url}}</p>
+        <p>{{song.cover}}</p>
+      </ion-label>
+      <ion-button (click)="deleteSong(song.id)" color="danger">Delete</ion-button>
+      <!-- Botón de actualización que redirige a la página de actualización de usuario -->
+      <ion-button [routerLink]="['/update-song', song.id]" color="primary">Update</ion-button>
+    </ion-item>
+  </ion-list>
+
+ 
 </ion-content>
