@@ -13,15 +13,19 @@ module.exports = (sequelize, Sequelize) => {
             }
         },
     }, {
-        timestamps: true, // Agrega las columnas createdAt y updatedAt automáticamente
-        tableName: "playlists",
+        timestamps: true,
+        tableName: 'playlists',
     });
 
-    // Relación inversa: una lista pertenece a un usuario
+    // Relaciones
     Playlist.associate = function(models) {
         Playlist.belongsTo(models.User, {
-            foreignKey: 'userId', // Esta es la clave foránea que apunta a la tabla de usuarios
-            as: 'user', // Alias para la relación (opcional, pero recomendado para claridad)
+            foreignKey: 'userId',
+            as: 'user',
+        });
+        Playlist.hasMany(models.SongInList, { // Relación con SongInList
+            foreignKey: 'playlistId',
+            as: 'songsInList', // Alias para acceder a las canciones en la lista
         });
     };
 

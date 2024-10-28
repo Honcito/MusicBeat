@@ -1,7 +1,10 @@
 const db = require("../models");
-const User = db.users;
+const User = db.User;
 const Op = db.Sequelize.Op;
 //const bcrypt = require('bcrypt');
+
+// Depuración: Verificar si el modelo User se carga correctamente
+console.log("User model:", User); // Esto debería mostrar el modelo o undefined
 
 // Create and Save a new User.
 exports.create = (req, res) => {

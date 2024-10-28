@@ -1,5 +1,3 @@
-const { SELECT } = require("sequelize/lib/query-types");
-
 module.exports = (sequelize, Sequelize) => {
     const Song = sequelize.define("Song", {
         title: {
@@ -12,11 +10,11 @@ module.exports = (sequelize, Sequelize) => {
         },
         album: {
             type: Sequelize.STRING, 
-            allowNull: true // Asegura que el campo de contraseña no sea nulo
+            allowNull: true
         },
         length: {
-            type: Sequelize.STRING, //length in "minutes:seconds" format
-            allowNull: true // Asegura que el campo de contraseña no sea nulo
+            type: Sequelize.STRING, 
+            allowNull: true 
         },
         url: {
             type: Sequelize.STRING,
@@ -26,26 +24,18 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING,
             allowNull: true,
         },
-
-         // Asegúrate de incluir createdAt y updatedAt si no se están generando automáticamente
-    createdAt: {
-        type: Sequelize.DATE,
-        allowNull: false,
-        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
-      },
-      updatedAt: {
-        type: Sequelize.DATE,
-        allowNull: false,
-        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
-      },
-       
     }, {
-        timestamps: true, // Agrega las columnas createdAt y updatedAt automáticamente
-        tableName: "songs" // Nombre de la tabla
+        timestamps: true,
+        tableName: 'songs',
     });
+
+    // Relaciones
+    Song.associate = function(models) {
+        Song.hasMany(models.SongInList, { // Relación con SongInList
+            foreignKey: 'songId',
+            as: 'songInList', // Alias para acceder a las listas de la canción
+        });
+    };
 
     return Song; // Retornar el modelo
 };
-
-// Exportar el modelo
-//module.exports = Songs; // Esta línea debe estar al final

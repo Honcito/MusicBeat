@@ -18,14 +18,14 @@ module.exports = (sequelize, Sequelize) => {
         },
     }, {
         timestamps: true, // Agrega las columnas createdAt y updatedAt automáticamente
-        tableName: "users" // Nombre de la tabla
+        tableName: 'users', // Nombre de la tabla
     });
 
     // Definir la asociación aquí
     User.associate = function(models) {
         User.hasMany(models.Playlist, {
-            foreignKey: 'userId', // Asegúrate de que coincida con la clave foránea en el modelo Playlist
-            as: 'playlists', // Alias para la relación
+            foreignKey: 'userId',
+            as: 'playlists',
         });
     };
 

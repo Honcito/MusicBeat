@@ -40,6 +40,7 @@ app.get("/", (req, res) => {
 require("./routes/user.routes")(app);
 require("./routes/song.routes")(app);
 require("./routes/playlist.routes")(app);
+require("./routes/songInList.routes")(app);
 
 // Middleware para manejar errores
 app.use((err, req, res, next) => {
