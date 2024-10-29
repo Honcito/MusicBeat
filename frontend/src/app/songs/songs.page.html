@@ -11,29 +11,40 @@
     </ion-toolbar>
   </ion-header>
 
-   <!-- Botón para redirigir a la página de creación de usuario -->
-   <div class="button-background">
+  <!-- Botón para redirigir a la página de creación de canción -->
+  <div class="button-background">
     <ion-item class="button">
-      <ion-button class="add-user-btn" size="small" routerLink="/create-songs">Add Song</ion-button>
+      <ion-button class="add-user-btn" size="small" routerLink="/create-songs"
+        >Add Song</ion-button
+      >
     </ion-item>
   </div>
 
-  <!-- Lista de usuarios -->
+  <!-- Lista de canciones -->
   <ion-list class="list-background">
     <ion-item *ngFor="let song of songs">
-      <ion-label class="transparent-label">
-        <h1>{{song.title}}</h1>
-        <p>{{song.artist}}</p>
-        <p>{{song.album}}</p>
-        <p>{{song.length}}</p>
-        <p>{{song.url}}</p>
-        <p>{{song.cover}}</p>
-      </ion-label>
-      <ion-button (click)="deleteSong(song.id)" color="danger">Delete</ion-button>
-      <!-- Botón de actualización que redirige a la página de actualización de usuario -->
-      <ion-button [routerLink]="['/update-song', song.id]" color="primary">Update</ion-button>
+      <!-- imagen del álbum -->
+      <ion-thumbnail class="thumbnail" slot="end">
+        <img [src]="song.cover" alt="{{song.title}} Album Cover" />
+        <div class="icon-container">
+          <ion-icon name="play" size="large" class="custom-icon" (click)="playSong(song.url)"></ion-icon>
+          <ion-icon name="stop" size="large" class="custom-icon" (click)="stopSong()"></ion-icon>
+        </div>
+        
+        
+      </ion-thumbnail>
+
+      <div class="song-info">
+        <h1><strong>Title: </strong>{{song.title}}</h1>
+        <p><strong>Artist: </strong>{{song.artist}}</p>
+        <p><strong>Album: </strong>{{song.album}}</p>
+        <p><strong>Duration: </strong>{{song.length}}</p>
+
+        <div class="song-buttons">
+          <ion-button (click)="deleteSong(song.id)" color="danger" size="small">Delete</ion-button>
+          <ion-button [routerLink]="['/update-song', song.id]" color="primary" size="small">Update</ion-button>
+        </div>
+      </div>
     </ion-item>
   </ion-list>
-
- 
 </ion-content>

@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>EDIT SONG</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="updateForm" (ngSubmit)="updateSong()">
+    <ion-item>
+      <ion-label position="floating">Title</ion-label>
+      <ion-input formControlName="title"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Artist</ion-label>
+      <ion-input formControlName="artist"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Album</ion-label>
+      <ion-input formControlName="album"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Duration</ion-label>
+      <ion-input formControlName="length"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">URL</ion-label>
+      <ion-input formControlName="url"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Cover</ion-label>
+      <ion-input formControlName="cover"></ion-input>
+    </ion-item>
+
+    <div class="center-button">
+      <ion-button class="large-button" type="submit" [disabled]="!updateForm.valid">Update</ion-button>
+    </div>
+  </form>
+</ion-content>

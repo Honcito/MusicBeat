@@ -25,10 +25,13 @@ export class CreateUsersPage {
         // Restablece los campos del formulario después de crear el usuario
         this.resetForm();
         // Redirige a la página de usuarios después de crear el usuario
-        this.router.navigate(['/tabs/users']);
+        // this.router.navigate(['/tabs/users']);
+        this.router.navigateByUrl('/tabs/users', { skipLocationChange: true }).then(() => {
+          this.router.navigate(['/tabs/users']);
+        });
       },
       (error) => {
-        console.error('Error al crear el usuario', error);
+        console.error('Error al crear la canción', error);
       }
     );
   }

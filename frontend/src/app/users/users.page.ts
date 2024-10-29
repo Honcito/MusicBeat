@@ -8,29 +8,26 @@ import { UserService } from '../services/user.service';
 })
 export class UsersPage implements OnInit {
   users: any[] = []; // Declare the users array
-  
-  constructor(private userService: UserService) { }
+
+  constructor(private userService: UserService) {}
 
   ngOnInit() {
     this.loadUsers();
-   
   }
 
-  ionViewWillEnter(){
-   this.loadUsers();
+  ionViewWillEnter() {
+    this.loadUsers();
   }
 
   loadUsers() {
     this.userService.getAllUsers().subscribe((data: any[]) => {
-        this.users = data;
-      });
-      
+      this.users = data;
+    });
   }
 
   deleteUser(id: number) {
     this.userService.deleteUser(id).subscribe(() => {
-      this.loadUsers();  // Reload the list after deletion
+      this.loadUsers(); // Reload the list after deletion
     });
   }
 }
- 

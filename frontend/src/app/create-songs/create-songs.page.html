@@ -1,0 +1,44 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>ADD SONG</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <form (ngSubmit)="createSong()">
+    <ion-item>
+      <ion-label position="floating">Title</ion-label>
+      <ion-input [(ngModel)]="song.title" name="title" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Artist</ion-label>
+      <ion-input [(ngModel)]="song.artist" name="artist" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Album</ion-label>
+      <ion-input [(ngModel)]="song.album" name="album"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Length</ion-label>
+      <ion-input [(ngModel)]="song.length" name="length"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Url</ion-label>
+      <ion-input [(ngModel)]="song.url" name="url" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Cover</ion-label>
+      <ion-input [(ngModel)]="song.cover" name="cover" required></ion-input>
+    </ion-item>
+
+    <!-- Contenedor para centrar el botón -->
+    <div class="center-button">
+      <ion-button class="large-button" type="submit">Add</ion-button>
+    </div>
+  </form>
+</ion-content>

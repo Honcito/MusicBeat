@@ -2,11 +2,11 @@ module.exports = (sequelize, Sequelize) => {
     const Song = sequelize.define("Song", {
         title: {
             type: Sequelize.STRING, 
-            required: true,
+            allowNull: false,
         },
         artist: {
             type: Sequelize.STRING, 
-            required: true,
+            allowNull: false,
         },
         album: {
             type: Sequelize.STRING, 
@@ -18,7 +18,7 @@ module.exports = (sequelize, Sequelize) => {
         },
         url: {
             type: Sequelize.STRING,
-            required: true,
+            allowNull: false,
         },
         cover: {
             type: Sequelize.STRING,
