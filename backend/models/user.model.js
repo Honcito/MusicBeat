@@ -1,3 +1,6 @@
+const { toDefaultValue } = require("sequelize/lib/utils");
+const bcrypt = require("bcrypt")
+
 module.exports = (sequelize, Sequelize) => {
     const User = sequelize.define("User", {
         username: {
@@ -16,10 +19,23 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING,
             allowNull: false, // Asegura que el campo de contraseña no sea nulo
         },
+        role: {
+            type: Sequelize.STRING,
+            allowNull: false,
+            defaultValue: 'user',
+        },
     }, {
         timestamps: true, // Agrega las columnas createdAt y updatedAt automáticamente
         tableName: 'users', // Nombre de la tabla
     });
+
+    // Encriptar la contraseña antes de crear el usuario
+    User.beforeCreate(async (user) => {
+        // hace que el hash sea más seguro
+        const salt = await bcrypt.genSalt(10);
+        // Encriptar la contraseña de texto plano a encriptada
+        user.password = await bcrypt.hash(user.password, salt);
+    })
 
     // Definir la asociación aquí
     User.associate = function(models) {
@@ -28,6 +44,11 @@ module.exports = (sequelize, Sequelize) => {
             as: 'playlists',
         });
     };
+
+    // Método para comparar la contraseña con el segundo campo de contraseña
+    User.prototype.comparePassword = function(password) {
+        return bcrypt.compare(password, this.password);
+    }
 
     return User; // Retornar el modelo
 };

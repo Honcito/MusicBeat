@@ -3,25 +3,28 @@
 module.exports = app => {
     const express = require("express");
     const users = require("../controllers/user.controller.js");
-
     const router = require("express").Router();
+    const authenticateJWT = require("../middleware/authenticateJWT");
 
-    // Crear un nuevo Empleado.
+    // Ruta protegida que requiere autenticación
+    router.get("/profile", authenticateJWT, users.getUserProfile);
+    
+    // Crear un nuevo Usuario.
     router.post("/", users.create);
 
-    // Recuperar todos los Empleados.
+    // Recuperar todos los Usuarios.
     router.get("/", users.findAll);
 
-    // Recuperar un Empleado con id.
+    // Recuperar un Usuario con id.
     router.get("/:id", users.findOne);
 
-    // Actualizar un Empleado con id.
+    // Actualizar un Usuario con id.
     router.put("/:id", users.update);
 
-    // Eliminar un Empleado con id.
+    // Eliminar un Usuario con id.
     router.delete("/:id", users.delete);
 
-    // Eliminar todos los Empleados.
+    // Eliminar todos los Usuario.
     router.delete("/", users.deleteAll);
 
     // Prefijo para todas las rutas.
