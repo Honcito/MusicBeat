@@ -68,10 +68,10 @@ export class UpdateSongPage implements OnInit {
       const payload: any = {
         title: updatedSong.title,
         artist: updatedSong.artist,
-        album: updatedSong.album, // Agrega este campo
-        length: updatedSong.length, // Agrega este campo
+        album: updatedSong.album,
+        length: updatedSong.length, 
         url: updatedSong.url,
-        cover: updatedSong.cover // Agrega este campo
+        cover: updatedSong.cover 
       };
   
       this.songService.updateSong(this.songId, payload).subscribe(

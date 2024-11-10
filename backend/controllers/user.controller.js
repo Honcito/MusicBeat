@@ -1,11 +1,12 @@
 const db = require("../models");
 const User = db.User;
 const Op = db.Sequelize.Op;
-//const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt');
 
 // Depuración: Verificar si el modelo User se carga correctamente
 console.log("User model:", User); // Esto debería mostrar el modelo o undefined
 
+// Create and Save a new User.
 // Create and Save a new User.
 exports.create = (req, res) => {
     // Validate request
@@ -16,32 +17,35 @@ exports.create = (req, res) => {
         return;
     }
 
-    // Cypher password
-    //const hashedPassword = bcrypt.hashSync(req.body.password, 10);
+    // Cifrar la contraseña
+    const hashedPassword = bcrypt.hashSync(req.body.password, 10);
 
-    // Create an user
+    // Crear un nuevo usuario con la contraseña cifrada
     const user = {
         username: req.body.username,
         email: req.body.email,
+<<<<<<< HEAD
         //password: hashedPassword, // Cypher the password
         password: req.body.password,
         role: req.body.role
-    };
+=======
 
-    // Save User in the database
+
+    // Guardar el usuario en la base de datos
     User.create(user)
         .then(() => {
-            return User.findAll(); // Recover all users after creation
+            return User.findAll(); // Recuperar todos los usuarios después de la creación
         })
         .then(allUsers => {
-            res.status(201).json(allUsers); // Get list of all users
+            res.status(201).json(allUsers); // Obtener la lista de todos los usuarios
         })
         .catch(err => {
             res.status(500).send({
                 message: err.message || "Some error occurred while creating the user."
             });
         });
-}; // Cierre de la función create
+};
+ // Cierre de la función create
 
 // Retrieve all Users from the database.
 exports.findAll = (req, res) => {
@@ -141,5 +145,22 @@ exports.deleteAll = (req, res) => {
             res.status(500).send({
                 message: err.message || "Could not delete all Users."
             });
+        });
+};
+
+// Esta función puede devolver la información del perfil del usuario, por ejemplo, de la base de datos o del JWT.
+exports.getUserProfile = (req, res) => {
+    const userId = req.user.id; // Asegúrate de que 'req.user' tiene los datos correctos del usuario autenticado
+
+    User.findByPk(userId)
+        .then(user => {
+            if (user) {
+                res.status(200).json(user);
+            } else {
+                res.status(404).json({ message: "User not found" });
+            }
+        })
+        .catch(err => {
+            res.status(500).json({ message: "Error retrieving user profile", error: err.message });
         });
 };

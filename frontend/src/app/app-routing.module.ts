@@ -1,11 +1,23 @@
 import { NgModule } from '@angular/core';
-import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
+import { LoginComponent } from './login/login.component';  // Importa la página de login
+import { ProfileComponent } from './profile/profile.component';  // Página protegida
+import { AuthGuard } from './guards/auth.guard';  // Asegúrate de que el AuthGuard esté en la carpeta correcta
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'tabs/home',
-    pathMatch: 'full'
+    redirectTo: 'login',  // Redirige a login cuando se accede a la raíz
+    pathMatch: 'full',
+  },
+  {
+    path: 'login',
+    component: LoginComponent,  // Componente de login
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent,  // Componente del perfil
+    canActivate: [AuthGuard],  // Usar el AuthGuard para proteger esta ruta
   },
   {
     path: 'tabs',
@@ -37,26 +49,20 @@ const routes: Routes = [
   },
   {
     path: 'update-user/:id',
-    loadChildren: () => import('./update-user/update-user.module').then( m => m.UpdateUserPageModule)
+    loadChildren: () => import('./update-user/update-user.module').then(m => m.UpdateUserPageModule)
   },
   {
     path: 'create-songs',
-    loadChildren: () => import('./create-songs/create-songs.module').then( m => m.CreateSongsPageModule)
+    loadChildren: () => import('./create-songs/create-songs.module').then(m => m.CreateSongsPageModule)
   },
   {
     path: 'update-song/:id',
-    loadChildren: () => import('./update-song/update-song.module').then( m => m.UpdateSongPageModule)
+    loadChildren: () => import('./update-song/update-song.module').then(m => m.UpdateSongPageModule)
   }
-
-
 ];
 
-
-
 @NgModule({
-  imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
-  ],
-  exports: [RouterModule]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

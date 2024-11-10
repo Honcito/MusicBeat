@@ -1,7 +1,10 @@
+require('dotenv').config();
+
 const express = require("express");
 const cors = require("cors");
 const path = require('path');
 const db = require("./models");
+const authRoutes = require("./routes/auth.routes");
 
 
 const app = express();
@@ -52,6 +55,7 @@ require("./routes/user.routes")(app);
 require("./routes/song.routes")(app);
 require("./routes/playlist.routes")(app);
 require("./routes/songInList.routes")(app);
+app.use("/api/auth", authRoutes);
 
 // Middleware para manejar errores
 app.use((err, req, res, next) => {
