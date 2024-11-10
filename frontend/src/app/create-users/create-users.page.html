@@ -21,7 +21,14 @@
       <ion-input type="password" [(ngModel)]="user.password" name="password" required></ion-input>
     </ion-item>
 
-    <!-- Contenedor para centrar el botón -->
+    <ion-item>
+      <ion-label position="floating">Role</ion-label>
+      <ion-select [(ngModel)]="user.role" name="role" required>
+        <ion-select-option value="user">User</ion-select-option>
+        <ion-select-option value="admin">Admin</ion-select-option>
+      </ion-select>
+    </ion-item>
+
     <div class="center-button">
       <ion-button class="large-button" type="submit">Add</ion-button>
     </div>

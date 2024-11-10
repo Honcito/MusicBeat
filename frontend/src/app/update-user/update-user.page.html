@@ -6,37 +6,48 @@
 
 <ion-content>
   <form [formGroup]="updateForm" (ngSubmit)="updateUser()">
+    <!-- Campo de Username -->
     <ion-item>
       <ion-label position="floating">Username</ion-label>
       <ion-input formControlName="username"></ion-input>
     </ion-item>
 
+    <!-- Campo de Email con validaciones -->
     <ion-item>
       <ion-label position="floating">Email</ion-label>
       <ion-input formControlName="email"></ion-input>
-      <!-- Mostrar el error de validación del email -->
       <ion-text *ngIf="updateForm.get('email')?.invalid && updateForm.get('email')?.touched">
         <p *ngIf="updateForm.get('email')?.hasError('required')">Email is required.</p>
         <p *ngIf="updateForm.get('email')?.hasError('email')">Please enter a valid email.</p>
       </ion-text>
     </ion-item>
 
+    <!-- Campo de Password con validaciones -->
     <ion-item>
       <ion-label position="floating">Password</ion-label>
       <ion-input type="password" formControlName="password"></ion-input>
-      <!-- Mostrar error de la contraseña -->
       <ion-text *ngIf="updateForm.get('password')?.invalid && updateForm.get('password')?.touched">
         <p *ngIf="updateForm.get('password')?.hasError('required')">Password is required.</p>
         <p *ngIf="updateForm.get('password')?.hasError('minlength')">Password must be at least 6 characters long.</p>
       </ion-text>
     </ion-item>
 
+    <!-- Campo de Role -->
+    <ion-item>
+      <ion-label position="floating">Role</ion-label>
+      <ion-select formControlName="role">
+        <ion-select-option value="user">User</ion-select-option>
+        <ion-select-option value="admin">Admin</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <!-- Botón de actualización -->
     <div class="center-button">
-    <ion-button class="large-button" type="submit" [disabled]="!updateForm.valid">Update</ion-button>
+      <ion-button class="large-button" type="submit" [disabled]="!updateForm.valid">Update</ion-button>
     </div>
   </form>
 
-  <!-- Debugging the form status -->
+  <!-- Depuración del estado del formulario -->
   <ion-item>
     <ion-label>Status</ion-label>
     <ion-text>
@@ -45,7 +56,7 @@
     </ion-text>
   </ion-item>
 
-  <!-- Debugging individual control statuses -->
+  <!-- Depuración de los estados de cada campo individual -->
   <ion-item>
     <ion-label>Username valid:</ion-label>
     <ion-text>{{ updateForm.get('username')?.valid }}</ion-text>
@@ -57,5 +68,9 @@
   <ion-item>
     <ion-label>Password valid:</ion-label>
     <ion-text>{{ updateForm.get('password')?.valid }}</ion-text>
+  </ion-item>
+  <ion-item>
+    <ion-label>Role valid:</ion-label>
+    <ion-text>{{ updateForm.get('role')?.valid }}</ion-text>
   </ion-item>
 </ion-content>

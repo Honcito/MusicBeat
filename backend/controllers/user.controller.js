@@ -9,9 +9,9 @@ console.log("User model:", User); // Esto debería mostrar el modelo o undefined
 // Create and Save a new User.
 exports.create = (req, res) => {
     // Validate request
-    if (!req.body.username || !req.body.email || !req.body.password) {
+    if (!req.body.username || !req.body.email || !req.body.password || !req.body.role) {
         res.status(400).send({
-            message: "Content can not be empty! 'name', 'email' and 'password' are required."
+            message: "Content can not be empty! 'name', 'email', 'password' and role are required."
         });
         return;
     }
@@ -24,7 +24,8 @@ exports.create = (req, res) => {
         username: req.body.username,
         email: req.body.email,
         //password: hashedPassword, // Cypher the password
-        password: req.body.password
+        password: req.body.password,
+        role: req.body.role
     };
 
     // Save User in the database

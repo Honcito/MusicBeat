@@ -1,0 +1,64 @@
+const express = require("express");
+const cors = require("cors");
+const path = require("path");
+const db = require("./models");
+const app = express();
+require('dotenv').config;
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Configura CORS de manera más flexible
+const corsOptions = {
+  origin: process.env.FRONTEND_URL || "http://localhost:8100",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+};
+
+// Usar CORS con las opciones configuradas
+app.use(cors(corsOptions));
+
+// Sincroniza la base de datos
+db.sequelize.sync({ alter: true }).then(() => {
+  console.log("Syncing database... Altering table if necessary.");
+  console.log("Initializing backend.");
+
+  // Verifica la conexión a la base de datos
+  db.sequelize
+    .authenticate()
+    .then(() => {
+      console.log("Connection to the database has been established successfully.");
+    })
+    .catch((err) => {
+      console.error("Unable to connect to the database:", err);
+    });
+});
+
+// Servir archivos estáticos desde la carpeta 'music'
+app.use("/music", express.static(path.join(__dirname, "music")));
+
+// Servir imagenes desde la carpeta cover
+app.use("/cover", express.static(path.join(__dirname, "cover")));
+
+// Ruta de inicio
+app.get("/", (req, res) => {
+  res.json({ message: "Welcome to Music Beat" });
+});
+
+// Importar rutas
+require("./routes/user.routes")(app);
+require("./routes/song.routes")(app);
+require("./routes/playlist.routes")(app);
+require("./routes/songInList.routes")(app);
+
+// Middleware para manejar errores
+app.use((err, req, res, next) => {
+  console.error("Error:", err.stack); // Log de error detallado
+  res.status(500).send({ message: "Something went wrong!" }); // Respuesta genérica
+});
+
+// Configura el puerto de escucha
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}.`);
+});

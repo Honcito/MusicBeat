@@ -12,7 +12,8 @@ export class CreateUsersPage {
   user = {
     username: '',
     email: '',
-    password: ''
+    password: '',
+    role: ""
   };
 
   constructor(private userService: UserService, private router: Router) {}
@@ -31,7 +32,7 @@ export class CreateUsersPage {
         });
       },
       (error) => {
-        console.error('Error al crear la canción', error);
+        console.error('Error al crear usuario', error);
       }
     );
   }
@@ -41,7 +42,8 @@ export class CreateUsersPage {
     this.user = {
       username: '',
       email: '',
-      password: ''
+      password: '',
+      role: ''
     };
   }
 }

@@ -22,6 +22,7 @@ export class UpdateUserPage implements OnInit {
       username: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.minLength(6)]],  // La contraseña no es requerida inicialmente
+      role: ['', [Validators.required]],
     });
   }
 
@@ -38,7 +39,8 @@ export class UpdateUserPage implements OnInit {
           this.updateForm.patchValue({
             username: user.username,
             email: user.email,
-            password: ''  // Deja el campo de la contraseña vacío
+            password: '',  // Deja el campo de la contraseña vacío
+            role: user.role
           });
         },
         (error) => {
@@ -77,7 +79,8 @@ export class UpdateUserPage implements OnInit {
       // Creamos un objeto payload para enviar al backend
       const payload: any = {
         username: updatedUser.username,
-        email: updatedUser.email
+        email: updatedUser.email,
+        role: updatedUser.role
       };
   
       // Solo incluimos la contraseña si tiene un valor

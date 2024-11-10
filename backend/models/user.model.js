@@ -16,6 +16,14 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING,
             allowNull: false, // Asegura que el campo de contraseña no sea nulo
         },
+        role: {
+            type: Sequelize.STRING,
+            allowNull: false,
+            defaultValue: "user", // Valor predeterminado, si es necesario
+            validate: {
+                isIn: [['user', 'admin']]
+            }
+        },
     }, {
         timestamps: true, // Agrega las columnas createdAt y updatedAt automáticamente
         tableName: 'users', // Nombre de la tabla
