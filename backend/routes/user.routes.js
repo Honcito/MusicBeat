@@ -4,13 +4,11 @@ module.exports = app => {
     const express = require("express");
     const users = require("../controllers/user.controller.js");
     const router = require("express").Router();
-    const authenticateJWT = require("../middleware/authenticateJWT");
-
-    // Ruta protegida que requiere autenticación
-    router.get("/profile", authenticateJWT, users.getUserProfile);
+    // photo
+    var upload = require('../multer/upload');
     
-    // Crear un nuevo Usuario.
-    router.post("/", users.create);
+    // Crear un nuevo Usuario. photo(upload,single('file')
+    router.post("/", upload.single('file'), users.create);
 
     // Recuperar todos los Usuarios.
     router.get("/", users.findAll);

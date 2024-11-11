@@ -31,4 +31,23 @@
     padding: 10px 0; /* Ajusta el padding */
   }
   
+  ion-col {
+    text-align: center;
+  }
+
+  .photo-frame {
+    margin: 1vw;
+    border: black solid 1px;
+    width: 35vw;
+    border-radius: .25em;
+  }
+
+  .error {
+    color: red;
+  }
+
+  form {
+    margin: 8vw;
+  }
+  
   

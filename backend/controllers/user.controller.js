@@ -22,7 +22,9 @@ exports.create = (req, res) => {
         email: req.body.email,
         //password: hashedPassword, // Cypher the password
         password: req.body.password,
-        role: req.body.role
+        role: req.body.role,
+        // photo
+        filename: req.file ? req.file.filename: ""
     }
 
     // Guardar el usuario en la base de datos

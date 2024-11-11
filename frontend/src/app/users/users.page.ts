@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-users',
@@ -9,11 +10,14 @@ import { UserService } from '../services/user.service';
 export class UsersPage implements OnInit {
   users: any[] = []; // Declare the users array
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private router: Router) {}
 
   ngOnInit() {
     this.loadUsers();
   }
+
+  // ionViewDidEnter() {
+  //   this.loadUsers();}
 
   ionViewWillEnter() {
     this.loadUsers();
@@ -29,5 +33,10 @@ export class UsersPage implements OnInit {
     this.userService.deleteUser(id).subscribe(() => {
       this.loadUsers(); // Reload the list after deletion
     });
+  }
+
+  //photo
+  addUser() {
+    this.router.navigate(['/create-users']);
   }
 }

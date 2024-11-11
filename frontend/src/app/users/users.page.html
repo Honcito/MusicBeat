@@ -12,25 +12,39 @@
   </ion-header>
 
    <!-- Botón para redirigir a la página de creación de usuario -->
-   <div class="button-background">
+   <!-- <div class="button-background">
     <ion-item class="button">
       <ion-button class="add-user-btn" size="small" routerLink="/create-users">Add User</ion-button>
     </ion-item>
-  </div>
+  </div> -->
 
   <!-- Lista de usuarios -->
   <ion-list class="list-background">
     <ion-item *ngFor="let user of users">
+      <!-- photo -->
+      <ion-avatar slot="start">
+        <img *ngIf="user.filename" src="http://localhost:8080/public/{{user.filename}}" alt="image"/>
+      </ion-avatar>
       <ion-label class="transparent-label">
         <h2>User: {{user.username}}</h2>
         <p>Email: {{user.email}}</p>
         <p>Role: {{user.role}}</p>
+        <div>
+          <ion-button (click)="deleteUser(user.id)" color="danger">Delete</ion-button>
+        <!-- Botón de actualización que redirige a la página de actualización de usuario -->
+        <ion-button [routerLink]="['/update-user', user.id]" color="primary">Update</ion-button>
+        </div>
       </ion-label>
-      <ion-button (click)="deleteUser(user.id)" color="danger">Delete</ion-button>
-      <!-- Botón de actualización que redirige a la página de actualización de usuario -->
-      <ion-button [routerLink]="['/update-user', user.id]" color="primary">Update</ion-button>
+      
+      
     </ion-item>
   </ion-list>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="addUser()">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 
  
 </ion-content>

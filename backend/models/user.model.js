@@ -27,6 +27,10 @@ module.exports = (sequelize, Sequelize) => {
                 isIn: [['user', 'admin']]
             }
         },
+        // photo
+        filename: {
+            type: Sequelize.STRING,
+        },
     }, {
         timestamps: true, // Agrega las columnas createdAt y updatedAt automáticamente
         tableName: 'users', // Nombre de la tabla
