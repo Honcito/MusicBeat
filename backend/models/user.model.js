@@ -22,13 +22,10 @@ module.exports = (sequelize, Sequelize) => {
         role: {
             type: Sequelize.STRING,
             allowNull: false,
-<<<<<<< HEAD
             defaultValue: "user", // Valor predeterminado, si es necesario
             validate: {
                 isIn: [['user', 'admin']]
             }
-=======
-
         },
     }, {
         timestamps: true, // Agrega las columnas createdAt y updatedAt automáticamente

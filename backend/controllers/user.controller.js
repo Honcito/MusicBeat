@@ -1,12 +1,11 @@
 const db = require("../models");
 const User = db.User;
 const Op = db.Sequelize.Op;
-const bcrypt = require('bcrypt');
+
 
 // Depuración: Verificar si el modelo User se carga correctamente
 console.log("User model:", User); // Esto debería mostrar el modelo o undefined
 
-// Create and Save a new User.
 // Create and Save a new User.
 exports.create = (req, res) => {
     // Validate request
@@ -17,19 +16,14 @@ exports.create = (req, res) => {
         return;
     }
 
-    // Cifrar la contraseña
-    const hashedPassword = bcrypt.hashSync(req.body.password, 10);
-
-    // Crear un nuevo usuario con la contraseña cifrada
+        // Crear un nuevo usuario con la contraseña cifrada
     const user = {
         username: req.body.username,
         email: req.body.email,
-<<<<<<< HEAD
         //password: hashedPassword, // Cypher the password
         password: req.body.password,
         role: req.body.role
-=======
-
+    }
 
     // Guardar el usuario en la base de datos
     User.create(user)

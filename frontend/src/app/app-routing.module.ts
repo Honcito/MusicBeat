@@ -1,23 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './login/login.component';  // Importa la página de login
-import { ProfileComponent } from './profile/profile.component';  // Página protegida
-import { AuthGuard } from './guards/auth.guard';  // Asegúrate de que el AuthGuard esté en la carpeta correcta
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'login',  // Redirige a login cuando se accede a la raíz
-    pathMatch: 'full',
-  },
-  {
-    path: 'login',
-    component: LoginComponent,  // Componente de login
-  },
-  {
-    path: 'profile',
-    component: ProfileComponent,  // Componente del perfil
-    canActivate: [AuthGuard],  // Usar el AuthGuard para proteger esta ruta
+    redirectTo: 'tabs/home',
+    pathMatch: 'full', 
   },
   {
     path: 'tabs',
