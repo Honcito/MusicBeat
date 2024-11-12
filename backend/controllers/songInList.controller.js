@@ -1,49 +1,48 @@
-const db = require("../models");
-const SongInList = db.songInList; // Asegúrate de que el nombre coincida
-const Playlist = db.playlists; // Importa el modelo de Playlist
-const Song = db.songs; // Importa el modelo de Song
 
-// Create and Save a new entry in SongInList.
+
+const db = require("../models");
+const SongInList = db.SongInList;
+const Playlist = db.Playlists;
+const Song = db.Songs;
+
+// Añadir una canción a una playlist
 exports.addSongToList = (req, res) => {
-    // Validate request
     if (!req.body.playlistId || !req.body.songId) {
         return res.status(400).send({
-            message: "Content cannot be empty! 'playlistId' and 'songId' are required."
+            message: "playlistId y songId son necesarios."
         });
     }
 
-    // Create a new SongInList entry
     const songInListEntry = {
         playlistId: req.body.playlistId,
         songId: req.body.songId,
     };
 
-    // Save entry in the database
     SongInList.create(songInListEntry)
         .then(() => {
-            res.status(201).json({ message: "Song added to playlist successfully." });
+            res.status(201).json({ message: "Canción añadida a la playlist con éxito." });
         })
         .catch(err => {
             res.status(500).send({
-                message: err.message || "Some error occurred while adding the song to the playlist."
+                message: err.message || "Error al añadir la canción a la playlist."
             });
         });
 };
 
-// Retrieve all entries from SongInList.
+// Obtener todas las canciones en playlists
 exports.findAll = (req, res) => {
-    SongInList.findAll({ include: [Playlist, Song] }) // Incluye Playlist y Song para obtener información adicional
+    SongInList.findAll({ include: [Playlist, Song] })
         .then(data => {
             res.send(data);
         })
         .catch(err => {
             res.status(500).send({
-                message: err.message || "Some error occurred while retrieving songs in playlists."
+                message: err.message || "Error al recuperar las canciones en playlists."
             });
         });
 };
 
-// Find a single entry in SongInList by id.
+// Obtener una canción específica en una playlist por ID
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
@@ -53,18 +52,18 @@ exports.findOne = (req, res) => {
                 res.send(data);
             } else {
                 res.status(404).send({
-                    message: `Cannot find entry with id=${id}.`
+                    message: `No se encontró la entrada con id=${id}.`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: err.message || "Error retrieving entry with id=" + id
+                message: err.message || "Error al recuperar la entrada con id=" + id
             });
         });
 };
 
-// Delete an entry in SongInList with the specified id in the request.
+// Eliminar una canción de una playlist por ID
 exports.delete = (req, res) => {
     const id = req.params.id;
 
@@ -74,33 +73,17 @@ exports.delete = (req, res) => {
     .then(num => {
         if (num == 1) {
             res.send({
-                message: "Song was removed from the playlist successfully."
+                message: "La canción fue eliminada de la playlist con éxito."
             });
         } else {
             res.send({
-                message: `Cannot delete entry with id=${id}. Maybe it was not found!`
+                message: `No se pudo eliminar la entrada con id=${id}. Quizás no fue encontrada.`
             });
         }
     })
     .catch(err => {
         res.status(500).send({
-            message: err.message || "Could not delete entry with id=" + id
-        });
-    });
-};
-
-// Delete all entries from SongInList.
-exports.deleteAll = (req, res) => {
-    SongInList.destroy({
-        where: {},
-        truncate: false
-    })
-    .then(nums => {
-        res.send({ message: `${nums} entries were deleted successfully!` });
-    })
-    .catch(err => {
-        res.status(500).send({
-            message: err.message || "Could not delete all entries."
+            message: err.message || "No se pudo eliminar la entrada con id=" + id
         });
     });
 };

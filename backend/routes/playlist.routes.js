@@ -7,23 +7,14 @@ module.exports = app => {
 
     const router = require("express").Router();
 
-    // Create a new Playlist.
-    router.post("/", playlists.create);
+  // Crear una nueva playlist
+router.post("/", playlists.create);
 
-    // Retrieve all Playlists.
-    router.get("/", playlists.findAll);
+// Obtener todas las playlists de un usuario
+router.get("/user/:userId", playlists.findAllByUser);
 
-    // Retrieve a Playlist by Id.
-    router.get("/:id", playlists.findOne);
-
-    // Uptdate a Playlist by Id.
-    router.put("/:id", playlists.update);
-
-    // Delete a Playlist by Id.
-    router.delete("/:id", playlists.delete);
-
-    // Delete all Playlists.
-    router.delete("/", playlists.deleteAll);
+// Añadir una canción a una playlist
+router.post("/addSong", playlists.addSongToPlaylist);
 
     // Prefix for all the routes.
     app.use("/api/playlists", router); 

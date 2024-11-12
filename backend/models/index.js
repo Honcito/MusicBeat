@@ -25,11 +25,11 @@ db.Playlist = require("./playlist.model.js")(sequelize, Sequelize);
 db.Song = require("./song.model.js")(sequelize, Sequelize);
 db.SongInList = require("./songInList.model.js")(sequelize, Sequelize); 
 
-// Definir las asociaciones
-db.User.associate(db); // User primero
-db.Playlist.associate(db); // Luego Playlist
-db.Song.associate(db); // Luego Song
-db.SongInList.associate(db); // Finalmente SongInList
+// Luego definir las asociaciones
+if (db.User.associate) db.User.associate(db);
+if (db.Playlist.associate) db.Playlist.associate(db);
+if (db.Song.associate) db.Song.associate(db);
+if (db.SongInList.associate) db.SongInList.associate(db);
 
 
 // Manejo de conexión
