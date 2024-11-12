@@ -38,29 +38,20 @@ db.sequelize.sync({ alter: true }).then(() => {
 });
 
 // Sirve archivos estáticos para las imágenes de perfil y otros
-app.use("/public", express.static(path.join(__dirname, 'public/images')));
+app.use("/public", express.static(path.join(__dirname, 'public')));
 
-// Rutas de Usuarios: crear un usuario con carga de imagen
-app.post("/api/users", upload.single('image'), (req, res) => {
-  const { username, email, password, role } = req.body;
-  const imagePath = req.file ? `/public/images/${req.file.filename}` : ''; // Ruta de la imagen
+// Sirve archivos estáticos para las canciones
+app.use("/music", express.static(path.join(__dirname, 'music')));
 
-  const newUser = {
-    username,
-    email,
-    password,
-    role,
-    imagePath,
-  };
+// Sirve archivos estáticos para las portadas
+app.use("/cover", express.static(path.join(__dirname, 'cover')));
 
-  // Guardar el nuevo usuario en la base de datos
-  db.User.create(newUser)
-    .then(user => res.json(user))
-    .catch(err => {
-      console.error("Error al crear el usuario:", err);
-      res.status(500).send({ message: "Error al crear el usuario" });
-    });
-});
+
+// Importa las rutas
+const userRoutes = require("./routes/user.routes"); // Importar el router de usuarios
+
+// Usar las rutas de usuarios
+app.use("/api/users", userRoutes); // Aquí es donde usamos el router
 
 // Ruta simple para verificar el servidor
 app.get("/", (req, res) => {
@@ -68,7 +59,6 @@ app.get("/", (req, res) => {
 });
 
 // Importar otras rutas
-require("./routes/user.routes")(app);
 require("./routes/song.routes")(app);
 require("./routes/playlist.routes")(app);
 require("./routes/songInList.routes")(app);

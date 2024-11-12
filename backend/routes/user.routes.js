@@ -1,30 +1,25 @@
+const express = require("express");
+const users = require("../controllers/user.controller.js");
+const router = express.Router();  // Usar 'express.Router()' para definir las rutas
+const upload = require('../multer/upload'); // Importar el middleware de Multer
 
+// Ruta para crear un nuevo Usuario (usando Multer para la carga de imágenes)
+router.post("/", upload.single('image'), users.create);  // Multer 'image' es el campo del formulario
 
-module.exports = app => {
-    const express = require("express");
-    const users = require("../controllers/user.controller.js");
-    const router = require("express").Router();
-    // photo
-    var upload = require('../multer/upload');
-    
-    // Crear un nuevo Usuario. photo(upload,single('file')
-    router.post("/", upload.single('file'), users.create);
+// Ruta para recuperar todos los usuarios
+router.get("/", users.findAll);
 
-    // Recuperar todos los Usuarios.
-    router.get("/", users.findAll);
+// Ruta para recuperar un usuario por su id
+router.get("/:id", users.findOne);
 
-    // Recuperar un Usuario con id.
-    router.get("/:id", users.findOne);
+// Ruta para actualizar un usuario por su id
+router.put("/:id", users.update);
 
-    // Actualizar un Usuario con id.
-    router.put("/:id", users.update);
+// Ruta para eliminar un usuario por su id
+router.delete("/:id", users.delete);
 
-    // Eliminar un Usuario con id.
-    router.delete("/:id", users.delete);
+// Ruta para eliminar todos los usuarios
+router.delete("/", users.deleteAll);
 
-    // Eliminar todos los Usuario.
-    router.delete("/", users.deleteAll);
-
-    // Prefijo para todas las rutas.
-    app.use("/api/users", router); 
-};
+// Exportar el router, no app.use() aquí
+module.exports = router;

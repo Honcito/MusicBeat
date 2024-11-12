@@ -1,9 +1,8 @@
-// Archivo: create-users.page.ts
-
 import { Component, OnInit } from '@angular/core';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-users',
@@ -23,7 +22,10 @@ export class CreateUsersPage implements OnInit {
     filename: ''
   };
 
-  constructor(private http: HttpClient) {}
+  // Para almacenar la URL de la imagen
+  userImageUrl: string = '';
+
+  constructor(private http: HttpClient, private router: Router) {}
 
   ionViewWillEnter() {
     this.isSubmitted = false;
@@ -67,23 +69,32 @@ export class CreateUsersPage implements OnInit {
   createUser() {
     if (this.user.username && this.user.email && this.user.password && this.user.role) {
       console.log('Usuario creado:', this.user);
-
+  
       const formData = new FormData();
       formData.append('username', this.user.username);
       formData.append('email', this.user.email);
       formData.append('password', this.user.password);
       formData.append('role', this.user.role);
-
-      // Verificar si hay una imagen capturada y convertirla a Blob si es necesario
-      if (this.capturedPhoto.startsWith('blob:')) {
+  
+      // Verificar si hay una imagen capturada
+      if (this.capturedPhoto && this.capturedPhoto.startsWith('blob:')) {
         fetch(this.capturedPhoto)
           .then(res => res.blob())
           .then(blob => {
-            formData.append('image', blob, 'profile-image.jpg'); // Añadir la imagen al FormData
-            // Enviar al backend después de convertir la imagen a Blob
-            this.http.post(`${environment.apiUrl}/api/users`, formData).subscribe(
+            formData.append('image', blob, 'profile-image.jpg'); // Agregar la imagen al FormData
+            console.log('Imagen agregada al FormData:', blob);  // Verifica que la imagen se haya agregado correctamente
+  
+            // Enviar el FormData al backend
+            this.http.post<any>(`${environment.apiUrl}/api/users`, formData).subscribe(
               (response) => {
                 console.log('Usuario creado con éxito:', response);
+                
+                // Suponiendo que el backend envía la ruta del archivo en "response.filename"
+                this.userImageUrl = `${environment.apiUrl}/${response.filename}`;
+                console.log('URL de la imagen:', this.userImageUrl);
+
+                // Redirigir de nuevo a la lista de usuarios
+                this.router.navigate(['/tabs/users'])
               },
               (error) => {
                 console.error('Error al crear el usuario:', error);

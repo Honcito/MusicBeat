@@ -1,47 +1,52 @@
 const db = require("../models");
 const User = db.User;
 const Op = db.Sequelize.Op;
-
+const path = require('path');
 
 // Depuración: Verificar si el modelo User se carga correctamente
 console.log("User model:", User); // Esto debería mostrar el modelo o undefined
 
 // Create and Save a new User.
 exports.create = (req, res) => {
-    // Validate request
     if (!req.body.username || !req.body.email || !req.body.password || !req.body.role) {
-        res.status(400).send({
-            message: "Content can not be empty! 'name', 'email', 'password' and role are required."
+        return res.status(400).send({
+            message: "Content can not be empty! 'username', 'email', 'password' and role are required."
         });
-        return;
+    }
+ 
+    // Verifica si la imagen se ha subido
+    if (req.file) {
+        console.log('Imagen procesada por multer:', req.file); // Log de la imagen
+        console.log('Ruta del archivo:', `public/images/${req.file.filename}`); // Log de la ruta de la imagen
+    } else {
+        console.log('No se procesó ningún archivo');
     }
 
-        // Crear un nuevo usuario con la contraseña cifrada
+    // Crear el objeto del usuario
     const user = {
         username: req.body.username,
         email: req.body.email,
-        //password: hashedPassword, // Cypher the password
         password: req.body.password,
         role: req.body.role,
-        // photo
-        filename: req.file ? req.file.filename: ""
-    }
-
+        filename: req.file ? `images/${req.file.filename}` : "" // Guardamos la ruta en el campo 'filename'
+    };
+ 
     // Guardar el usuario en la base de datos
     User.create(user)
-        .then(() => {
-            return User.findAll(); // Recuperar todos los usuarios después de la creación
-        })
-        .then(allUsers => {
-            res.status(201).json(allUsers); // Obtener la lista de todos los usuarios
+        .then(createdUser => {
+            console.log('Usuario creado:', createdUser); // Log del usuario creado
+            res.status(201).json({
+                message: "User created successfully",
+                user: createdUser
+            });
         })
         .catch(err => {
+            console.error('Error al crear el usuario:', err); // Log de error
             res.status(500).send({
                 message: err.message || "Some error occurred while creating the user."
             });
         });
 };
- // Cierre de la función create
 
 // Retrieve all Users from the database.
 exports.findAll = (req, res) => {

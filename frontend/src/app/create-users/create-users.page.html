@@ -11,8 +11,14 @@
     <ion-grid>
       <ion-row class="ion-align-items-center">
         <ion-col size="6">
+          <!-- Mostrar la imagen si ya se cargó -->
           <ion-img class="photo-frame" *ngIf="capturedPhoto" [src]="capturedPhoto" (click)="takePhoto()"></ion-img>
-          <ion-img class="photo-frame" *ngIf="!capturedPhoto" src="../../assets/No-Image-Placeholder.svg" (click)="takePhoto()"></ion-img>
+          
+          <!-- Mostrar la imagen del usuario si ya se creó, y la URL está disponible -->
+          <ion-img class="photo-frame" *ngIf="userImageUrl" [src]="userImageUrl" alt="User Profile Picture"></ion-img>
+
+          <!-- Mostrar un placeholder si no hay foto capturada ni imagen de usuario -->
+          <ion-img class="photo-frame" *ngIf="!capturedPhoto && !userImageUrl" src="../../assets/No-Image-Placeholder.svg" (click)="takePhoto()"></ion-img>
         </ion-col>
         <ion-col size="6">
           <ion-button color="primary" fill="outline" (click)="takePhoto()">

@@ -11,6 +11,9 @@ exports.create = (req, res) => {
         });
     }
 
+    // const songUrl = req.body.url ? req.body.url : `${process.env.API_URL}/music/${req.file.filename}`;
+    // const coverUrl = req.body.cover ? req.body.cover : `${process.env.API_URL}/covers/${req.file.filename}`;
+
     // Create a song
     const song = {
         title: req.body.title,

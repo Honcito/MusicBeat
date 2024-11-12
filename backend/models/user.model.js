@@ -1,7 +1,7 @@
-const { toDefaultValue } = require("sequelize/lib/utils");
-const bcrypt = require("bcrypt")
+const bcrypt = require("bcrypt");
 
 module.exports = (sequelize, Sequelize) => {
+    // Definición del modelo de Usuario
     const User = sequelize.define("User", {
         username: {
             type: Sequelize.STRING,
@@ -12,39 +12,36 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false,
             unique: true,
             validate: {
-                isEmail: true // Validar el formato del email
+                isEmail: true, // Validar formato de correo electrónico
             },
         },
         password: {
             type: Sequelize.STRING,
-            allowNull: false, // Asegura que el campo de contraseña no sea nulo
+            allowNull: false,
         },
         role: {
             type: Sequelize.STRING,
             allowNull: false,
-            defaultValue: "user", // Valor predeterminado, si es necesario
+            defaultValue: "user", // Valor predeterminado
             validate: {
-                isIn: [['user', 'admin']]
-            }
+                isIn: [['user', 'admin']], // Validar los roles permitidos
+            },
         },
-        // photo
         filename: {
-            type: Sequelize.STRING,
+            type: Sequelize.STRING, // Este es el campo donde guardarás la ruta de la imagen
         },
     }, {
-        timestamps: true, // Agrega las columnas createdAt y updatedAt automáticamente
+        timestamps: true, // Esto asegura las columnas `createdAt` y `updatedAt`
         tableName: 'users', // Nombre de la tabla
     });
 
-    // Encriptar la contraseña antes de crear el usuario
+    // Hook para encriptar la contraseña antes de crear el usuario
     User.beforeCreate(async (user) => {
-        // hace que el hash sea más seguro
-        const salt = await bcrypt.genSalt(10);
-        // Encriptar la contraseña de texto plano a encriptada
-        user.password = await bcrypt.hash(user.password, salt);
-    })
+        const salt = await bcrypt.genSalt(10); // Sal de encriptación
+        user.password = await bcrypt.hash(user.password, salt); // Encriptar la contraseña
+    });
 
-    // Definir la asociación aquí
+    // Definir asociaciones (relaciones) con otros modelos
     User.associate = function(models) {
         User.hasMany(models.Playlist, {
             foreignKey: 'userId',
@@ -52,10 +49,10 @@ module.exports = (sequelize, Sequelize) => {
         });
     };
 
-    // Método para comparar la contraseña con el segundo campo de contraseña
+    // Método para comparar la contraseña proporcionada con la almacenada
     User.prototype.comparePassword = function(password) {
         return bcrypt.compare(password, this.password);
-    }
+    };
 
     return User; // Retornar el modelo
 };

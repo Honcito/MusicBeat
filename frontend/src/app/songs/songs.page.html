@@ -27,8 +27,10 @@
       <ion-thumbnail class="thumbnail" slot="end">
         <img [src]="song.cover" alt="{{song.title}} Album Cover" />
         <div class="icon-container">
-          <ion-icon name="play" size="large" class="custom-icon" (click)="playSong(song.url)"></ion-icon>
-          <ion-icon name="stop" size="large" class="custom-icon" (click)="stopSong()"></ion-icon>
+          <!-- En el HTML usa togglePlayPause -->
+<ion-icon name="play" size="large" class="custom-icon" (click)="togglePlayPause(song.url)"></ion-icon>
+<ion-icon name="pause" size="large" class="custom-icon" (click)="togglePlayPause(song.url)"></ion-icon>
+
         </div>
         
         
@@ -47,4 +49,11 @@
       </div>
     </ion-item>
   </ion-list>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="addSong()">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
 </ion-content>
