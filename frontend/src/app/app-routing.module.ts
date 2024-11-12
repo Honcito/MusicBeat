@@ -50,7 +50,11 @@ const routes: Routes = [
   {
     path: 'login',  // Asegúrate de que la ruta login esté definida
     loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule)
+  },  {
+    path: 'playlist',
+    loadChildren: () => import('./playlist/playlist.module').then( m => m.PlaylistPageModule)
   }
+
 ];
 
 @NgModule({
