@@ -46,7 +46,11 @@ const routes: Routes = [
   {
     path: 'update-song/:id',
     loadChildren: () => import('./update-song/update-song.module').then(m => m.UpdateSongPageModule)
+  },  {
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
   }
+
 ];
 
 @NgModule({

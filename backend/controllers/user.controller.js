@@ -2,9 +2,52 @@ const db = require("../models");
 const User = db.User;
 const Op = db.Sequelize.Op;
 const path = require('path');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 // Depuración: Verificar si el modelo User se carga correctamente
 console.log("User model:", User); // Esto debería mostrar el modelo o undefined
+
+// Login
+exports.login = async (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        // Verificar que el email y la contraseña estén en la petición
+        if (!email || !password) {
+            return res.status(400).json({ message: "Email and password are required." });
+        }
+
+        // Buscar al usuario en la base de datos por email
+        const user = await User.findOne({ where: { email } });
+        if (!user) {
+            return res.status(404).json({ message: "User not found." });
+        }
+
+        // Verificar que la contraseña coincida
+        const passwordIsValid = await bcrypt.compare(password, user.password);
+        if (!passwordIsValid) {
+            return res.status(401).json({ message: "Invalid password." });
+        }
+
+        // Crear el token JWT
+        const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: "1h" });
+
+        // Enviar la respuesta con el token y los detalles del usuario
+        res.status(200).json({
+            message: "Login successful.",
+            token,
+            user: {
+                id: user.id,
+                username: user.username,
+                email: user.email,
+                role: user.role
+            }
+        });
+    } catch (error) {
+        res.status(500).json({ message: "An error occurred during login.", error: error.message });
+    }
+};
 
 // Create and Save a new User.
 exports.create = (req, res) => {
@@ -164,4 +207,44 @@ exports.getUserProfile = (req, res) => {
         .catch(err => {
             res.status(500).json({ message: "Error retrieving user profile", error: err.message });
         });
+
+        exports.login = (req, res) => {
+            const { email, password } = req.body;
+        
+            if (!email || !password) {
+                return res.status(400).send({ message: 'Email and password are required.' });
+            }
+        
+            // Buscar el usuario por el email
+            User.findOne({ where: { email: email } })
+                .then(user => {
+                    if (!user) {
+                        return res.status(401).send({ message: 'Invalid email or password.' });
+                    }
+        
+                    // Comparar la contraseña proporcionada con la guardada en la base de datos
+                    bcrypt.compare(password, user.password, (err, result) => {
+                        if (err || !result) {
+                            return res.status(401).send({ message: 'Invalid email or password.' });
+                        }
+        
+                        // Si la contraseña es correcta, generar el JWT
+                        const token = jwt.sign(
+                            { id: user.id, email: user.email }, 
+                            process.env.JWT_SECRET, // Asegúrate de tener un secreto en tu archivo .env
+                            { expiresIn: '1h' } // El token expirará en 1 hora
+                        );
+        
+                        // Responder con el token
+                        res.status(200).json({
+                            message: 'Login successful',
+                            token: token
+                        });
+                    });
+                })
+                .catch(err => {
+                    res.status(500).send({ message: 'Error during authentication.' });
+                });
+        };
+        
 };
