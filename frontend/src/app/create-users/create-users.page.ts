@@ -10,26 +10,25 @@ import { Router } from '@angular/router';
   styleUrls: ['./create-users.page.scss'],
 })
 export class CreateUsersPage implements OnInit {
-  capturedPhoto: string = ''; // Variable para almacenar la foto tomada o seleccionada
-  isSubmitted: boolean = false;
+  capturedPhoto: string = ''; // Almacena la foto tomada o seleccionada
+  isSubmitted: boolean = false; // Controla si el formulario se ha enviado
 
-  // Definir un objeto user para el modelo de datos
+  // Modelo de usuario
   user = {
     username: '',
     email: '',
     password: '',
-    role: 'user', // Valor por defecto
+    role: 'user', // Valor predeterminado
     filename: ''
   };
 
-  // Para almacenar la URL de la imagen
-  userImageUrl: string = '';
+  userImageUrl: string = ''; // URL de la imagen del usuario para visualizar
 
   constructor(private http: HttpClient, private router: Router) {}
 
   ionViewWillEnter() {
     this.isSubmitted = false;
-    this.capturedPhoto = '';
+    this.capturedPhoto = ''; // Reinicia la foto capturada al entrar en la vista
   }
 
   ngOnInit() {}
@@ -38,74 +37,76 @@ export class CreateUsersPage implements OnInit {
   takePhoto() {
     Camera.getPhoto({
       resultType: CameraResultType.Uri,
-      source: CameraSource.Camera, // Tomar foto desde la cámara
+      source: CameraSource.Camera, 
       quality: 100
-    }).then(photo => {
-      this.capturedPhoto = photo.webPath ? photo.webPath : ''; // Guardar la foto en la variable capturedPhoto
-    }).catch(error => {
-      console.error('Error al tomar la foto:', error);
-    });
+    })
+    .then(photo => this.capturedPhoto = photo.webPath || '')
+    .catch(error => console.error('Error al tomar la foto:', error));
   }
 
-  // Método para seleccionar una foto desde la galería
+  // Método para seleccionar una imagen de la galería
   pickImage() {
     Camera.getPhoto({
       resultType: CameraResultType.Uri,
-      source: CameraSource.Photos, // Seleccionar imagen desde la galería
+      source: CameraSource.Photos,
       quality: 100
-    }).then(photo => {
-      this.capturedPhoto = photo.webPath ? photo.webPath : ''; // Guardar la foto en la variable capturedPhoto
-    }).catch(error => {
-      console.error('Error al seleccionar la imagen:', error);
-    });
+    })
+    .then(photo => this.capturedPhoto = photo.webPath || '')
+    .catch(error => console.error('Error al seleccionar la imagen:', error));
   }
 
-  // Método para descartar la imagen
+  // Método para descartar la imagen seleccionada o capturada
   discardImage() {
-    this.capturedPhoto = ""; // Limpiar la imagen capturada
+    this.capturedPhoto = ''; // Limpia la foto capturada
   }
 
-  // Método para enviar el formulario
+  // Método para crear un nuevo usuario
   createUser() {
     if (this.user.username && this.user.email && this.user.password && this.user.role) {
       console.log('Usuario creado:', this.user);
-  
+
       const formData = new FormData();
       formData.append('username', this.user.username);
       formData.append('email', this.user.email);
       formData.append('password', this.user.password);
       formData.append('role', this.user.role);
-  
-      // Verificar si hay una imagen capturada
-      if (this.capturedPhoto && this.capturedPhoto.startsWith('blob:')) {
+
+      // Verifica si se ha capturado o seleccionado una imagen
+      if (this.capturedPhoto.startsWith('blob:')) {
         fetch(this.capturedPhoto)
           .then(res => res.blob())
           .then(blob => {
-            formData.append('image', blob, 'profile-image.jpg'); // Agregar la imagen al FormData
-            console.log('Imagen agregada al FormData:', blob);  // Verifica que la imagen se haya agregado correctamente
-  
-            // Enviar el FormData al backend
-            this.http.post<any>(`${environment.apiUrl}/api/users`, formData).subscribe(
-              (response) => {
-                console.log('Usuario creado con éxito:', response);
-                
-                // Suponiendo que el backend envía la ruta del archivo en "response.filename"
-                this.userImageUrl = `${environment.apiUrl}/${response.filename}`;
-                console.log('URL de la imagen:', this.userImageUrl);
+            formData.append('image', blob, 'profile-image.jpg'); // Agrega la imagen al FormData
+            console.log('Imagen agregada al FormData:', blob);
 
-                // Redirigir de nuevo a la lista de usuarios
-                this.router.navigate(['/tabs/users'])
-              },
-              (error) => {
-                console.error('Error al crear el usuario:', error);
-              }
-            );
-          });
+            // Enviar los datos del usuario al backend
+            this.sendUserData(formData);
+          })
+          .catch(error => console.error('Error al procesar la imagen:', error));
       } else {
         console.log('Por favor, capture o seleccione una imagen.');
       }
     } else {
       console.log('Por favor, complete todos los campos.');
     }
+  }
+
+  // Método auxiliar para enviar datos al backend y redirigir después de la creación
+  private sendUserData(formData: FormData) {
+    this.http.post<any>(`${environment.apiUrl}/api/users`, formData).subscribe({
+      next: (response) => {
+        console.log('Usuario creado con éxito:', response);
+        
+        // Asignar la URL de la imagen devuelta por el backend
+        this.userImageUrl = `${environment.apiUrl}/${response.filename}`;
+        console.log('URL de la imagen:', this.userImageUrl);
+
+        // Redirigir a la lista de usuarios después de la creación
+        this.router.navigate(['/tabs/users']).then(() => {
+          window.location.reload();  // Fuerza una recarga completa para ver el nuevo usuario
+        });
+      },
+      error: (err) => console.error('Error al crear el usuario:', err)
+    });
   }
 }

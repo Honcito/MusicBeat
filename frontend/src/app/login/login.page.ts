@@ -23,7 +23,7 @@ export class LoginPage {
     this.http.post(`${environment.apiUrl}/api/users/login`, loginData).subscribe(
       (response: any) => {
         localStorage.setItem('token', response.token); // Guardar el token en el localStorage
-        this.router.navigate(['/home']); // Redirigir a la página de inicio
+        this.router.navigate(['/tabs/home']); // Redirigir a la página de inicio
       },
       error => {
         alert('Login failed');

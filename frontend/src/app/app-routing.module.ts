@@ -4,8 +4,8 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'tabs/home',
-    pathMatch: 'full', 
+    redirectTo: 'login',  // Redirige al login al inicio
+    pathMatch: 'full',
   },
   {
     path: 'tabs',
@@ -46,11 +46,11 @@ const routes: Routes = [
   {
     path: 'update-song/:id',
     loadChildren: () => import('./update-song/update-song.module').then(m => m.UpdateSongPageModule)
-  },  {
-    path: 'login',
-    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+  },
+  {
+    path: 'login',  // Asegúrate de que la ruta login esté definida
+    loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule)
   }
-
 ];
 
 @NgModule({
