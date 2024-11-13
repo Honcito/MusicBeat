@@ -17,7 +17,10 @@ router.post("/", playlists.create);
 router.get("/user/:userId", playlists.findAllByUser);
 
 // Añadir una canción a una playlist
-router.post("/addSong", playlists.addSongToPlaylist);
+router.post("/:playlistId/songs/:songId", playlists.addSongToPlaylist);
+
+// Eliminar una canción de la playlist
+router.delete("/:playlistId/songs/:songId", playlists.removeSongFromPlaylist);
 
  // Ruta para eliminar una playlist por ID
  router.delete("/:id", playlists.delete);

@@ -20,8 +20,8 @@ const routes: Routes = [
         loadChildren: () => import('../songs/songs.module').then(m => m.SongsPageModule),
       },
       {
-        path: 'artists',
-        loadChildren: () => import('../artists/artists.module').then(m => m.ArtistsPageModule),
+        path: 'playlists',
+        loadChildren: () => import('../playlist/playlist.module').then(m => m.PlaylistPageModule),
       },
       {
         path: 'about',

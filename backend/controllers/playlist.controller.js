@@ -96,3 +96,26 @@ exports.delete = (req, res) => {
       });
     });
 };
+
+// Eliminar una canción de una playlist
+exports.removeSongFromPlaylist = (req, res) => {
+  const { playlistId, songId } = req.params;
+
+  // Eliminar la relación entre la canción y la playlist
+  db.SongInList.destroy({
+    where: { playlistId, songId },
+  })
+    .then((num) => {
+      if (num === 1) {
+        res.status(200).send({ message: "Canción eliminada de la playlist con éxito." });
+      } else {
+        res.status(404).send({ message: "Canción no encontrada en esta playlist." });
+      }
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: err.message || "Error al eliminar la canción de la playlist.",
+      });
+    });
+};
+

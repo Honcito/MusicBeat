@@ -1,20 +1,22 @@
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ArtistsPageRoutingModule } from './artists-routing.module';
+import { SongInListPageRoutingModule } from './song-in-list-routing.module';
 
-import { ArtistsPage } from './artists.page';
+import { SongInListPage } from './song-in-list.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ArtistsPageRoutingModule
+    FormsModule,
+    SongInListPageRoutingModule
   ],
-  declarations: [ArtistsPage]
+  declarations: [SongInListPage]
 })
-export class ArtistsPageModule {}
+export class SongInListPageModule {}

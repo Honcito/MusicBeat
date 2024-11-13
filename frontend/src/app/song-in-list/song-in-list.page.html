@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Canciones en Playlist</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="loading">Cargando...</div>
+
+  <div *ngIf="!loading">
+    <ion-item>
+      <ion-label>Seleccionar Playlist</ion-label>
+      <ion-select [(ngModel)]="selectedPlaylist">
+        <ion-select-option *ngFor="let playlist of playlists" [value]="playlist.id">
+          {{ playlist.name }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+
+<ion-list>
+  <ion-item *ngFor="let song of songs">
+    <ion-label>{{ song.title }}</ion-label>
+    <ion-button (click)="addSongToPlaylist(song.id)">Añadir</ion-button>
+  </ion-item>
+</ion-list>
+
+
+  </div>
+</ion-content>

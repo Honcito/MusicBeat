@@ -1,9 +1,7 @@
-
-
 const db = require("../models");
 const SongInList = db.SongInList;
-const Playlist = db.Playlists;
-const Song = db.Songs;
+const Playlist = db.Playlist;
+const Song = db.Song;
 
 // Añadir una canción a una playlist
 exports.addSongToList = (req, res) => {
@@ -18,15 +16,36 @@ exports.addSongToList = (req, res) => {
         songId: req.body.songId,
     };
 
-    SongInList.create(songInListEntry)
-        .then(() => {
-            res.status(201).json({ message: "Canción añadida a la playlist con éxito." });
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: err.message || "Error al añadir la canción a la playlist."
+    // Verificar si la canción ya está en la playlist
+    SongInList.findOne({
+        where: {
+            playlistId: req.body.playlistId,
+            songId: req.body.songId
+        }
+    })
+    .then(existingSongInList => {
+        if (existingSongInList) {
+            return res.status(400).send({
+                message: "La canción ya está en esta playlist."
             });
+        }
+
+        // Si no está, creamos la relación
+        SongInList.create(songInListEntry)
+            .then(() => {
+                res.status(201).json({ message: "Canción añadida a la playlist con éxito." });
+            })
+            .catch(err => {
+                res.status(500).send({
+                    message: err.message || "Error al añadir la canción a la playlist."
+                });
+            });
+    })
+    .catch(err => {
+        res.status(500).send({
+            message: err.message || "Error al verificar la existencia de la canción en la playlist."
         });
+    });
 };
 
 // Obtener todas las canciones en playlists
@@ -87,3 +106,32 @@ exports.delete = (req, res) => {
         });
     });
 };
+
+// Obtener las canciones de una playlist específica
+exports.getSongsByPlaylist = (req, res) => {
+    const playlistId = req.params.playlistId; // Obtener el id de la playlist desde los parámetros de la URL
+
+    // Buscamos todas las canciones que están asociadas a esta playlist
+    SongInList.findAll({
+        where: { playlistId: playlistId },
+        include: [
+            { model: Playlist, as: 'playlist', where: { id: playlistId } },  // Asegúrate de usar el alias 'playlist'
+            { model: Song, as: 'song' }  // Asegúrate de usar el alias 'song'
+        ]
+    })
+    .then(data => {
+        if (data.length === 0) {
+            return res.status(404).send({
+                message: "No se encontraron canciones en la playlist con id " + playlistId
+            });
+        }
+        res.send(data);
+    })
+    .catch(err => {
+        res.status(500).send({
+            message: err.message || "Error al recuperar las canciones de la playlist."
+        });
+    });
+};
+
+

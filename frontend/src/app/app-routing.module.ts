@@ -1,3 +1,4 @@
+
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -28,10 +29,6 @@ const routes: Routes = [
     loadChildren: () => import('./about/about.module').then(m => m.AboutPageModule)
   },
   {
-    path: 'artists',
-    loadChildren: () => import('./artists/artists.module').then(m => m.ArtistsPageModule)
-  },
-  {
     path: 'songs',
     loadChildren: () => import('./songs/songs.module').then(m => m.SongsPageModule)
   },
@@ -50,10 +47,16 @@ const routes: Routes = [
   {
     path: 'login',  // Asegúrate de que la ruta login esté definida
     loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule)
-  },  {
+  },
+  {
     path: 'playlist',
     loadChildren: () => import('./playlist/playlist.module').then( m => m.PlaylistPageModule)
+  },
+  {
+    path: 'song-in-list',
+    loadChildren: () => import('./song-in-list/song-in-list.module').then( m => m.SongInListPageModule)
   }
+
 
 ];
 

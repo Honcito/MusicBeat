@@ -1,28 +1,28 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Mis Playlists</ion-title>
+    <ion-title>My Playlists</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
   <!-- Formulario para crear una nueva playlist -->
   <ion-item>
-    <ion-label position="floating">Nuevo nombre de playlist</ion-label>
+    <ion-label position="floating">Playlist Name</ion-label>
     <ion-input [(ngModel)]="newPlaylistName" type="text"></ion-input>
   </ion-item>
 
-  <ion-button expand="full" (click)="createPlaylist()">Crear Playlist</ion-button>
+  <ion-button expand="full" (click)="createPlaylist()">Create Playlist</ion-button>
 
   <!-- Lista de playlists -->
   <ion-list *ngIf="playlists.length > 0">
     <ion-item *ngFor="let playlist of playlists">
       <ion-label>{{ playlist.name }}</ion-label>
-      <ion-button fill="clear" color="danger" (click)="deletePlaylist(playlist.id)">Eliminar</ion-button>
+      <ion-button fill="clear" color="danger" (click)="deletePlaylist(playlist.id)">Delete</ion-button>
     </ion-item>
   </ion-list>
 
   <!-- Mensaje si no hay playlists -->
   <ion-text *ngIf="playlists.length === 0">
-    <p>No tienes playlists. ¡Crea una nueva!</p>
+    <p>You don't have a Playlist. Let's create one!</p>
   </ion-text>
 </ion-content>
