@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PlaylistService } from '../services/playlist.service'; // Importa el servicio Playlist
 import { Router } from '@angular/router'; // Si es necesario para navegar después de crear una playlist
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-playlist',
@@ -13,7 +14,8 @@ export class PlaylistPage implements OnInit {
 
   constructor(
     private playlistService: PlaylistService, // Inyectar el servicio Playlist
-    private router: Router // Si deseas navegar a otra página después de la creación
+    private router: Router, // Si deseas navegar a otra página después de la creación
+    private navCtrl: NavController
   ) {}
 
   ngOnInit() {
@@ -40,7 +42,7 @@ export class PlaylistPage implements OnInit {
     }
 
     const userId = 1; // Este debe ser el ID del usuario logueado, adaptado a tu lógica de autenticación
-    this.playlistService.createPlaylist(this.newPlaylistName, userId).subscribe(
+    this.playlistService.createPlaylist(this.newPlaylistName).subscribe(
       (response) => {
         this.loadPlaylists(); // Recargar las playlists después de crear una nueva
         this.newPlaylistName = ''; // Limpiar el campo de texto
@@ -49,6 +51,11 @@ export class PlaylistPage implements OnInit {
         console.error('Error al crear la playlist:', error);
       }
     );
+  }
+
+   // Llamado cuando se quiere ver las canciones de una playlist
+   viewSongsInPlaylist(playlistId: number) {
+    this.navCtrl.navigateForward(`/song-in-list/${playlistId}`);
   }
 
   // Método para eliminar una playlist

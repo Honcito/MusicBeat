@@ -28,8 +28,14 @@ export class AuthService {
     return this.http.post(`${environment.apiUrl}/api/users/login`, { email, password });
   }
 
-  // Método para cerrar sesión
-  logout() {
-    localStorage.removeItem('token'); // Elimina el token del almacenamiento
+   // Método para obtener el userId del usuario logueado
+   getUserId() {
+    return localStorage.getItem('userId');
   }
+
+ // Método para cerrar sesión
+ logout() {
+  localStorage.removeItem('token'); // Elimina el token del almacenamiento
+  localStorage.removeItem('userId'); // Elimina el userId también
+}
 }

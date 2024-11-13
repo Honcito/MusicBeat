@@ -17,7 +17,15 @@
   <ion-list *ngIf="playlists.length > 0">
     <ion-item *ngFor="let playlist of playlists">
       <ion-label>{{ playlist.name }}</ion-label>
-      <ion-button fill="clear" color="danger" (click)="deletePlaylist(playlist.id)">Delete</ion-button>
+      
+      <!-- Botón para ver las canciones de la playlist -->
+      <ion-button fill="outline" [routerLink]="['/playlist-songs', playlist.id]">
+        View Songs
+      </ion-button>
+
+      <ion-button fill="clear" color="danger" (click)="deletePlaylist(playlist.id)">
+        Delete
+      </ion-button>
     </ion-item>
   </ion-list>
 

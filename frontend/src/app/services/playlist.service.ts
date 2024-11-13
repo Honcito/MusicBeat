@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { AuthService } from './auth.service'; // Importa AuthService
 
 @Injectable({
   providedIn: 'root',
@@ -8,10 +9,14 @@ import { Observable } from 'rxjs';
 export class PlaylistService {
   private apiUrl = 'http://localhost:8080/api/playlists'; // Cambia esta URL según tu backend
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService // Inyecta AuthService
+  ) {}
 
   // Método para crear una nueva playlist
-  createPlaylist(name: string, userId: number): Observable<any> {
+  createPlaylist(name: string): Observable<any> {
+    const userId = this.authService.getUserId(); // Obtiene el userId del usuario logueado
     const body = { name, userId };
     return this.http.post(this.apiUrl, body);
   }

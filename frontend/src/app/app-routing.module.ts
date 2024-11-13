@@ -53,9 +53,23 @@ const routes: Routes = [
     loadChildren: () => import('./playlist/playlist.module').then( m => m.PlaylistPageModule)
   },
   {
+    path: 'song-in-list/:playlistId',  // Nueva ruta para las canciones
+    loadChildren: () => import('./song-in-list/song-in-list.module').then(m => m.SongInListPageModule)
+  },
+  {
     path: 'song-in-list',
     loadChildren: () => import('./song-in-list/song-in-list.module').then( m => m.SongInListPageModule)
-  }
+  },
+  {
+    path: 'playlist-songs/:playlistId',  // Usamos el ID de la playlist para obtener las canciones
+    loadChildren: () => import('./playlist-songs/playlist-songs.module').then(m => m.PlaylistSongsPageModule)
+  },
+  {
+    path: 'playlist-songs',
+    loadChildren: () => import('./playlist-songs/playlist-songs.module').then( m => m.PlaylistSongsPageModule)
+  },
+ 
+
 
 
 ];

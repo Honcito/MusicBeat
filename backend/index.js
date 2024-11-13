@@ -5,6 +5,9 @@ const multer = require('multer'); // Importar multer para manejar la carga de ar
 const db = require("./models");
 require('dotenv').config();
 
+
+
+
 const app = express();
 
 // Configura multer para almacenar imágenes en la carpeta 'public/images'
@@ -52,6 +55,10 @@ const userRoutes = require("./routes/user.routes"); // Importar el router de usu
 
 // Usar las rutas de usuarios
 app.use("/api/users", userRoutes); // Aquí es donde usamos el router
+// Importar las rutas para song, playlist, y songInList
+require("./routes/song.routes")(app);
+require("./routes/playlist.routes")(app);
+require("./routes/songInList.routes")(app);  // Importa y usa las rutas de songInList
 
 // Ruta simple para verificar el servidor
 app.get("/", (req, res) => {

@@ -32,5 +32,11 @@ export class SongService {
     return this.http.put<any>(`${this.apiUrl}/${id}`, song);
   }
 
+  // Método para obtener las canciones de una playlist por ID
+  getSongsByPlaylist(playlistId: number): Observable<any[]> {
+    // Ruta correcta para obtener las canciones de una playlist específica
+    return this.http.get<any[]>(`http://localhost:8080/api/songInList/playlist/${playlistId}`);
+  }
+
   
 }

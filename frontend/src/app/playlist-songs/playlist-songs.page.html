@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Playlist Songs</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <!-- Mensaje de error si ocurre un problema -->
+  <ion-alert
+    *ngIf="errorMessage"
+    [isOpen]="errorMessage !== ''"
+    header="Error"
+    message="{{ errorMessage }}"
+    buttons="OK">
+  </ion-alert>
+
+  <!-- Lista de canciones de la playlist -->
+  <ion-list *ngIf="songs.length > 0">
+    <ion-item *ngFor="let song of songs; let i = index">
+      <ion-label>{{ song.title || 'Untitled' }} - {{ song.artist || 'Unknown Artist' }}</ion-label> <!-- Usar valores predeterminados si no existen -->
+      <!-- Botón de reproducción -->
+      <ion-button fill="outline" (click)="playSong(i)" *ngIf="!isPlaying">Play</ion-button>
+      <!-- Botón de pausa -->
+      <ion-button fill="outline" (click)="pauseSong()" *ngIf="isPlaying">Pause</ion-button>
+      <!-- Botón de stop -->
+      <ion-button fill="outline" (click)="stopSong()" *ngIf="isPlaying">Stop</ion-button>
+    </ion-item>
+  </ion-list>
+
+  <!-- Mensaje si no hay canciones -->
+  <ion-text *ngIf="songs.length === 0">
+    <p>No songs in this playlist.</p>
+  </ion-text>
+
+  <!-- Controles de reproducción -->
+  <div *ngIf="songs.length > 0">
+    <ion-button (click)="prevSong()">Previous</ion-button>
+    <ion-button (click)="nextSong()">Next</ion-button>
+    <ion-button (click)="shuffleSongs()">Shuffle</ion-button>
+   
+
+  </div>
+
+</ion-content>
