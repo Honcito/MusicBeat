@@ -15,14 +15,17 @@
     "downlevelIteration": true,
     "experimentalDecorators": true,
     "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
     "importHelpers": true,
     "target": "es2022",
     "module": "es2020",
+    "types": ["node"],
     "lib": [
-      "es2018", 
+      "es2018",
       "dom"
     ],
-    "useDefineForClassFields": false
+    "useDefineForClassFields": false,
+    "esModuleInterop": true  // Asegúrate de que esta línea esté presente
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
@@ -31,3 +34,4 @@
     "strictTemplates": true
   }
 }
+

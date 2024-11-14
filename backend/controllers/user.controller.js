@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken');
 // Depuración: Verificar si el modelo User se carga correctamente
 console.log("User model:", User); // Esto debería mostrar el modelo o undefined
 
-// Login
+//Login
 exports.login = async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -193,7 +193,7 @@ exports.deleteAll = (req, res) => {
 };
 
 // Esta función puede devolver la información del perfil del usuario, por ejemplo, de la base de datos o del JWT.
-exports.getUserProfile = (req, res) => {
+/*exports.getUserProfile = (req, res) => {
     const userId = req.user.id; // Asegúrate de que 'req.user' tiene los datos correctos del usuario autenticado
 
     User.findByPk(userId)
@@ -206,45 +206,10 @@ exports.getUserProfile = (req, res) => {
         })
         .catch(err => {
             res.status(500).json({ message: "Error retrieving user profile", error: err.message });
-        });
-
-        exports.login = (req, res) => {
-            const { email, password } = req.body;
-        
-            if (!email || !password) {
-                return res.status(400).send({ message: 'Email and password are required.' });
-            }
-        
-            // Buscar el usuario por el email
-            User.findOne({ where: { email: email } })
-                .then(user => {
-                    if (!user) {
-                        return res.status(401).send({ message: 'Invalid email or password.' });
-                    }
-        
-                    // Comparar la contraseña proporcionada con la guardada en la base de datos
-                    bcrypt.compare(password, user.password, (err, result) => {
-                        if (err || !result) {
-                            return res.status(401).send({ message: 'Invalid email or password.' });
-                        }
-        
-                        // Si la contraseña es correcta, generar el JWT
-                        const token = jwt.sign(
-                            { id: user.id, email: user.email }, 
-                            process.env.JWT_SECRET, // Asegúrate de tener un secreto en tu archivo .env
-                            { expiresIn: '1h' } // El token expirará en 1 hora
-                        );
-        
-                        // Responder con el token
-                        res.status(200).json({
-                            message: 'Login successful',
-                            token: token
-                        });
-                    });
-                })
+        })
                 .catch(err => {
                     res.status(500).send({ message: 'Error during authentication.' });
                 });
         };
         
-};
+*/

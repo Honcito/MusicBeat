@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { PlaylistService } from '../services/playlist.service'; // Importa el servicio Playlist
-import { Router } from '@angular/router'; // Si es necesario para navegar después de crear una playlist
+import { PlaylistService } from '../services/playlist.service';
+import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
+import { AuthService } from '../services/auth.service';  // Asegúrate de importar el AuthService
 
 @Component({
   selector: 'app-playlist',
@@ -9,24 +10,24 @@ import { NavController } from '@ionic/angular';
   styleUrls: ['./playlist.page.scss'],
 })
 export class PlaylistPage implements OnInit {
-  playlists: any[] = []; // Para almacenar las playlists
-  newPlaylistName: string = ''; // Para el nombre de la nueva playlist
+  playlists: any[] = [];
+  newPlaylistName: string = '';
 
   constructor(
-    private playlistService: PlaylistService, // Inyectar el servicio Playlist
-    private router: Router, // Si deseas navegar a otra página después de la creación
-    private navCtrl: NavController
+    private playlistService: PlaylistService,
+    private router: Router,
+    private navCtrl: NavController,
+    private authService: AuthService // Inyectamos AuthService para acceder al userId
   ) {}
 
   ngOnInit() {
-    this.loadPlaylists(); // Cargar las playlists al inicio
+    this.loadPlaylists();
   }
 
-  // Método para cargar todas las playlists
   loadPlaylists() {
     this.playlistService.getAllPlaylists().subscribe(
       (data) => {
-        this.playlists = data; // Asignar las playlists al array
+        this.playlists = data;
       },
       (error) => {
         console.error('Error al cargar las playlists:', error);
@@ -34,35 +35,57 @@ export class PlaylistPage implements OnInit {
     );
   }
 
-  // Método para crear una nueva playlist
   createPlaylist() {
     if (this.newPlaylistName.trim() === '') {
       alert('Por favor, ingresa un nombre para la playlist');
       return;
     }
-
-    const userId = 1; // Este debe ser el ID del usuario logueado, adaptado a tu lógica de autenticación
-    this.playlistService.createPlaylist(this.newPlaylistName).subscribe(
-      (response) => {
-        this.loadPlaylists(); // Recargar las playlists después de crear una nueva
-        this.newPlaylistName = ''; // Limpiar el campo de texto
+  
+    const token = localStorage.getItem('token');
+    const userId = this.authService.getUserId(); // Usamos el método getUser Id() del AuthService
+    console.log('Token desde localStorage:', token);
+    console.log('User Id desde authService:', userId);
+  
+    // Verifica que el ID de usuario y el nombre de la playlist sean válidos
+    if (!userId) {
+      alert('Usuario no autenticado. No se puede crear la playlist.');
+      return;
+    }
+  
+    // Enviar la solicitud para crear la playlist
+    fetch("http://localhost:8080/api/playlists", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
       },
-      (error) => {
-        console.error('Error al crear la playlist:', error);
+      body: JSON.stringify({ name: this.newPlaylistName, userId: userId }), // Enviar el nombre y el ID del usuario
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Error en la respuesta del servidor: ' + response.statusText);
       }
-    );
+      return response.json();
+    })
+    .then(data => {
+      console.log("Playlist creada:", data); // Mostrar la respuesta del servidor
+      this.loadPlaylists(); // Recargar las playlists
+      this.newPlaylistName = ''; // Limpiar el campo de texto
+    })
+    .catch(error => {
+      console.error("Error al crear la playlist:", error);
+      alert('Ocurrió un error al crear la playlist. Inténtalo de nuevo.'); // Mostrar un mensaje de error al usuario
+    });
   }
 
-   // Llamado cuando se quiere ver las canciones de una playlist
-   viewSongsInPlaylist(playlistId: number) {
+  viewSongsInPlaylist(playlistId: number) {
     this.navCtrl.navigateForward(`/song-in-list/${playlistId}`);
   }
 
-  // Método para eliminar una playlist
   deletePlaylist(id: number) {
     this.playlistService.deletePlaylist(id).subscribe(
       (response) => {
-        this.loadPlaylists(); // Recargar las playlists después de eliminar una
+        this.loadPlaylists(); // Recargar las playlists
       },
       (error) => {
         console.error('Error al eliminar la playlist:', error);

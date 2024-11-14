@@ -5,9 +5,8 @@ const upload = require('../multer/upload'); // Importar el middleware de Multer
 const authMiddleware = require('../controllers/auth.middleware'); // Importar el middleware en una ruta protegida
 
 // Ruta para el Middleware
-// router.get('/profile', authMiddleware, users.getUserProfile);
-
-
+ //router.get('/profile', authMiddleware, users.getUserProfile);
+ 
 // Ruta para el login
 router.post('/login', users.login);
 

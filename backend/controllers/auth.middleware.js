@@ -1,21 +1,18 @@
 const jwt = require('jsonwebtoken');
 
-module.exports = (req, res, next) => {
-    const token = req.headers['authorization'];
+const authenticateToken = (req, res, next) => {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
 
-    if (!token) {
-        return res.status(403).send({ message: 'No token provided.' });
+  if (!token) {
+    return res.sendStatus(401); // Unauthorized
+  }
+
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+    if (err) {
+      return res.sendStatus(403); // Forbidden
     }
-
-    // Eliminar el "Bearer" del token
-    const tokenWithoutBearer = token.split(' ')[1];
-
-    jwt.verify(tokenWithoutBearer, process.env.JWT_SECRET, (err, decoded) => {
-        if (err) {
-            return res.status(401).send({ message: 'Unauthorized.' });
-        }
-
-        req.userId = decoded.id; // Decodifica el usuario para usarlo en otras rutas si es necesario
-        next();
-    });
+    req.user = user; // Attach user information to the request
+    next();
+  });
 };

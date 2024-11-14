@@ -14,19 +14,33 @@ exports.getAllPlaylists = (req, res) => {
 };
 
 
+
 // Crear y guardar una nueva Playlist
 exports.create = (req, res) => {
+  console.log("Contenido de req.body:", req.body);
+
+  // Extraer userId del objeto de solicitud
+  const userId = req.body.userId; // Tomar userId del cuerpo de la solicitud
+  console.log("User  ID extraído:", userId);
+
   // Validar request
-  if (!req.body.name || !req.body.userId) {
+  if (!req.body.name) {
     return res.status(400).send({
-      message: "El nombre de la playlist y el userId son requeridos.",
+      message: "El nombre de la playlist es requerido.",
+    });
+  }
+
+  // Validar que userId no esté vacío
+  if (!userId) {
+    return res.status(400).send({
+      message: "El ID de usuario es requerido.",
     });
   }
 
   // Crear una Playlist
   const playlist = {
     name: req.body.name,
-    userId: req.body.userId, // Asocia la playlist con el usuario que la crea
+    userId: userId, // Asocia la playlist con el usuario que la crea
   };
 
   // Guardar Playlist en la base de datos
@@ -38,6 +52,7 @@ exports.create = (req, res) => {
       })
     );
 };
+
 
 // Obtener todas las Playlists de un usuario específico
 exports.findAllByUser = (req, res) => {

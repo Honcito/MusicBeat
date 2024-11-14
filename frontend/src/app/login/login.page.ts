@@ -19,16 +19,25 @@ export class LoginPage {
       email: this.email,
       password: this.password
     };
-
+  
     this.http.post(`${environment.apiUrl}/api/users/login`, loginData).subscribe(
       (response: any) => {
-        localStorage.setItem('token', response.token); // Guardar el token en el localStorage
-        this.router.navigate(['/tabs/home']); // Redirigir a la página de inicio
+        console.log('Login response:', response); // Log the entire response
+  
+        // Check if the user object exists and retrieve userId
+        if (response.user && response.user.id) {
+          localStorage.setItem('userId', response.user.id); // Store the userId
+        } else {
+          console.warn('userId not found in response');
+        }
+  
+        localStorage.setItem('token', response.token); // Store the token
+        this.router.navigate(['/tabs/home']); // Redirect to the home page
       },
       error => {
+        console.error('Login error:', error); // Log the error for debugging
         alert('Login failed');
       }
     );
   }
 }
-
