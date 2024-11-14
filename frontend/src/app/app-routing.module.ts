@@ -57,21 +57,10 @@ const routes: Routes = [
     loadChildren: () => import('./song-in-list/song-in-list.module').then(m => m.SongInListPageModule)
   },
   {
-    path: 'song-in-list',
-    loadChildren: () => import('./song-in-list/song-in-list.module').then( m => m.SongInListPageModule)
-  },
-  {
     path: 'playlist-songs/:playlistId',  // Usamos el ID de la playlist para obtener las canciones
     loadChildren: () => import('./playlist-songs/playlist-songs.module').then(m => m.PlaylistSongsPageModule)
   },
-  {
-    path: 'playlist-songs',
-    loadChildren: () => import('./playlist-songs/playlist-songs.module').then( m => m.PlaylistSongsPageModule)
-  },
  
-
-
-
 ];
 
 @NgModule({

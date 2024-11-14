@@ -62,7 +62,7 @@ export class PlaylistSongsPage implements OnInit {
       }
     });
   }
-  
+
 
   // Reproducir canción
   playSong(index: number) {

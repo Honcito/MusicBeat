@@ -19,8 +19,12 @@
       <ion-label>{{ playlist.name }}</ion-label>
       
       <!-- Botón para ver las canciones de la playlist -->
+      <ion-button fill="outline" [routerLink]="['/song-in-list', playlist.id]">
+        Add Songs
+      </ion-button>
+
       <ion-button fill="outline" [routerLink]="['/playlist-songs', playlist.id]">
-        View Songs
+        Play Songs in playlist
       </ion-button>
 
       <ion-button fill="clear" color="danger" (click)="deletePlaylist(playlist.id)">

@@ -19,12 +19,6 @@
   <ion-list *ngIf="songs.length > 0">
     <ion-item *ngFor="let song of songs; let i = index">
       <ion-label>{{ song.title || 'Untitled' }} - {{ song.artist || 'Unknown Artist' }}</ion-label> <!-- Usar valores predeterminados si no existen -->
-      <!-- Botón de reproducción -->
-      <ion-button fill="outline" (click)="playSong(i)" *ngIf="!isPlaying">Play</ion-button>
-      <!-- Botón de pausa -->
-      <ion-button fill="outline" (click)="pauseSong()" *ngIf="isPlaying">Pause</ion-button>
-      <!-- Botón de stop -->
-      <ion-button fill="outline" (click)="stopSong()" *ngIf="isPlaying">Stop</ion-button>
     </ion-item>
   </ion-list>
 
@@ -34,12 +28,36 @@
   </ion-text>
 
   <!-- Controles de reproducción -->
-  <div *ngIf="songs.length > 0">
-    <ion-button (click)="prevSong()">Previous</ion-button>
-    <ion-button (click)="nextSong()">Next</ion-button>
-    <ion-button (click)="shuffleSongs()">Shuffle</ion-button>
-   
+  <div *ngIf="songs.length > 0" class="song-controls">
+    <!-- Icono para canción anterior (Previous) -->
+    <ion-button fill="clear" (click)="prevSong()">
+      <ion-icon slot="icon-only" src="assets/icon/play-back.svg"></ion-icon>
+    </ion-button>
+  
+    <!-- Icono para canción siguiente (Next) -->
+    <ion-button fill="clear" (click)="nextSong()">
+      <ion-icon slot="icon-only" src="assets/icon/play-forward.svg"></ion-icon>
+    </ion-button>
+  
+    <!-- Icono para mezclar canciones (Shuffle) -->
+    <ion-button fill="clear" (click)="shuffleSongs()">
+      <ion-icon slot="icon-only" src="assets/icon/shuffle.svg"></ion-icon>
+    </ion-button>
 
+    <!-- Icono de reproducción (Play) -->
+    <ion-button fill="clear" (click)="playSong(currentSongIndex)" *ngIf="!isPlaying">
+      <ion-icon slot="icon-only" src="assets/icon/play.svg"></ion-icon>
+    </ion-button>
+
+    <!-- Icono de pausa (Pause) -->
+    <ion-button fill="clear" (click)="pauseSong()" *ngIf="isPlaying">
+      <ion-icon slot="icon-only" src="assets/icon/pause.svg"></ion-icon>
+    </ion-button>
+
+    <!-- Icono de detener (Stop) -->
+    <ion-button fill="clear" (click)="stopSong()" *ngIf="isPlaying">
+      <ion-icon slot="icon-only" src="assets/icon/stop.svg"></ion-icon>
+    </ion-button>
   </div>
-
+  
 </ion-content>
