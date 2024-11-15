@@ -84,7 +84,7 @@ ionic serve
 # Coding Style Tests ⌨️
 Explain what these tests verify and why.
 
-## API Endpints Documentation 📑
+## API Endpoints Documentation 📑
 To view and test all API endpoints, check out the Postman collection I've prepared:
 
 **[Music Beat API Endpoints Documentation](https://www.postman.com/hong66-2174/public-workspace/documentation/xdnb03l/music-beat-users?workspaceId=dc6c7131-6e30-4ca2-85a3-747039c3d3f2)**
