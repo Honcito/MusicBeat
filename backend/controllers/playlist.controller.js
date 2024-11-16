@@ -55,6 +55,7 @@ exports.create = (req, res) => {
 
 
 // Obtener todas las Playlists de un usuario específico
+/*
 exports.findAllByUser = (req, res) => {
   const userId = req.params.userId; // Recupera el userId desde los parámetros de la URL
 
@@ -66,6 +67,24 @@ exports.findAllByUser = (req, res) => {
       })
     );
 };
+*/
+
+exports.getPlaylistsByUser = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const playlists = await Playlist.findAll({ where: { userId } });
+
+    if (playlists.length > 0) {
+      return res.json(playlists);
+    } else {
+      return res.status(404).json({ message: 'No se encontraron playlists para este usuario.' });
+    }
+  } catch (error) {
+    console.error("Error al obtener las playlists:", error);
+    return res.status(500).json({ message: 'Error al obtener las playlists.' });
+  }
+};
+
 
 // Agregar función para añadir una canción a una playlist
 exports.addSongToPlaylist = (req, res) => {

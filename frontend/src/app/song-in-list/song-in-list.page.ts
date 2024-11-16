@@ -1,6 +1,6 @@
-
 import { Component, OnInit } from '@angular/core';
-import axios from 'axios';  // Importa Axios para las peticiones HTTP
+import { HttpClient } from '@angular/common/http';  // Importar HttpClient
+import { Router } from '@angular/router';  // Importar Router para redirección
 
 @Component({
   selector: 'app-song-in-list',
@@ -14,7 +14,10 @@ export class SongInListPage implements OnInit {
   selectedPlaylist: string = ''; // Playlist seleccionada
   loading: boolean = true; // Estado de carga de los datos
 
-  constructor() { }
+  constructor(
+    private http: HttpClient, // Inyectamos HttpClient
+    private router: Router  // Inyectamos Router
+  ) {}
 
   ngOnInit() {
     // Cargar las canciones y playlists cuando la página se inicializa
@@ -23,25 +26,36 @@ export class SongInListPage implements OnInit {
   }
 
   loadSongs() {
-    axios.get('http://localhost:8080/api/songs') // Asegúrate de que esta URL sea la correcta
-      .then(response => {
-        this.songs = response.data;
-        this.loading = false;
-      })
-      .catch(error => {
-        console.error('Error fetching songs:', error);
-        this.loading = false;
-      });
+    this.http.get('http://localhost:8080/api/songs') // Usamos HttpClient para hacer la solicitud
+      .subscribe(
+        (response: any) => {
+          this.songs = response;
+          this.loading = false;
+        },
+        (error) => {
+          console.error('Error fetching songs:', error);
+          this.loading = false;
+        }
+      );
   }
 
   loadPlaylists() {
-    axios.get('http://localhost:8080/api/playlists') // Asegúrate de que esta URL sea la correcta
-      .then(response => {
-        this.playlists = response.data;
-      })
-      .catch(error => {
-        console.error('Error fetching playlists:', error);
-      });
+    const userId = localStorage.getItem('userId');  // Asegúrate de que el userId esté en localStorage
+
+    if (!userId) {
+      console.error('No se encontró el userId');
+      return;
+    }
+
+    this.http.get(`http://localhost:8080/api/playlists/user/${userId}`)  // Llamada a la API para obtener las playlists del usuario
+      .subscribe(
+        (response: any) => {
+          this.playlists = response;
+        },
+        (error) => {
+          console.error('Error fetching playlists:', error);
+        }
+      );
   }
 
   // Función para añadir canción a una playlist
@@ -56,13 +70,16 @@ export class SongInListPage implements OnInit {
       songId: songId
     };
 
-    axios.post('http://localhost:8080/api/songInList', data) // Asegúrate de que esta URL sea la correcta
-      .then(response => {
-        alert('Canción añadida a la playlist');
-      })
-      .catch(error => {
-        console.error('Error adding song to playlist:', error);
-        alert('Hubo un problema al añadir la canción.');
-      });
+    this.http.post('http://localhost:8080/api/songInList', data)  // Usamos HttpClient para realizar una solicitud POST
+      .subscribe(
+        (response) => {
+          alert('Canción añadida a la playlist');
+      
+        },
+        (error) => {
+          console.error('Error adding song to playlist:', error);
+          alert('Song already exists in this playlist.');
+        }
+      );
   }
 }

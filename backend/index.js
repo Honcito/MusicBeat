@@ -65,11 +65,6 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to Music Beat" });
 });
 
-// Importar otras rutas
-require("./routes/song.routes")(app);
-require("./routes/playlist.routes")(app);
-require("./routes/songInList.routes")(app);
-
 // Middleware para manejar errores
 app.use((err, req, res, next) => {
   console.error(err.stack);

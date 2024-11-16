@@ -1,7 +1,9 @@
+
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service'; // Importa AuthService
+import { HttpClient, HttpHeaders } from '@angular/common/http'; 
+
 
 @Injectable({
   providedIn: 'root',
@@ -27,8 +29,19 @@ export class PlaylistService {
   }
 
   // Método para obtener una playlist por ID
-  getPlaylistById(id: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/${id}`);
+  getPlaylistsByUser(userId: string): Observable<any> {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      throw new Error("No se encontró el token de autenticación");
+    }
+
+    // Asegúrate de que el token esté bien configurado
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+
+    // Asegúrate de que la URL es correcta
+    return this.http.get(`${this.apiUrl}/user/${userId}`, { headers });
   }
 
   // Método para eliminar una playlist por ID
