@@ -1,0 +1,73 @@
+/* Estilos para la lista de canciones */
+ion-list {
+    background-image: url('../../assets/images/songsBackground.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0); /* Fondo semi-transparente */
+    padding: 0;
+    height: auto; /* Aseguramos que la lista ocupe todo el espacio necesario */
+  }
+  
+  /* Estilos para cada item en la lista */
+  ion-item {
+    background-color: rgba(255, 255, 255, 0); /* Fondo mucho más transparente para los ítems */
+    margin: 5px 0; /* Espaciado entre ítems */
+    padding: 15px; /* Espaciado interno de los ítems */
+    display: flex; /* Usar flexbox para alinear contenido */
+    align-items: flex-start; /* Alineación vertical en la parte superior */
+  }
+  
+  /* Estilos para el encabezado */
+  ion-header {
+    background-color: #000000ae;
+    --ion-background-color: #00000095;
+    text-align: center;
+  }
+  
+  /* Estilos para el título */
+  ion-title {
+    color: #ffffff; /* Color blanco para el título */
+    font-weight: bold;
+  }
+  
+  /* Estilo de los botones de la canción */
+  .song-buttons {
+    display: flex;
+    justify-content: center; /* Centrar botones en móviles */
+    // flex-wrap: wrap; /* Permite que los botones se muevan a la siguiente línea si es necesario */
+    gap: px; /* Espacio entre botones */
+  }
+  
+  /* Recomendación para una vista móvil */
+  @media (max-width: 600px) {
+    ion-item {
+      flex-direction: column; /* Cambiar a columna en móviles */
+      align-items: flex-start; /* Alinear a la izquierda */
+    }
+  
+    .icon-container {
+      display: flex; /* Activa flexbox */
+      align-items: center; /* Centra verticalmente los íconos */
+      justify-content: center; /* Centra horizontalmente si lo deseas */
+    }
+    
+    .custom-icon {
+      transform: scale(1.5); /* Aumenta el tamaño en un 50% */
+      margin: 0 10px; /* Espaciado opcional entre los íconos */
+    }
+
+    .song-controls {
+        display: flex;
+        justify-content: center; /* Centra los botones horizontalmente */
+        align-items: center;     /* Centra los botones verticalmente */
+        gap: 15px;               /* Espaciado entre los botones */
+        flex-wrap: wrap;         /* Permite que los botones se ajusten si no caben en una línea */
+        margin-top: 20px;        /* Añade un pequeño margen superior */
+      }
+      
+    
+    
+  }
+  

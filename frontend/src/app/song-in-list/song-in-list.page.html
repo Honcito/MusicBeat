@@ -3,7 +3,7 @@
 
   <div *ngIf="!loading">
     <ion-item>
-      <ion-label>Seleccionar Playlist</ion-label>
+      <ion-label>Select a Playlist</ion-label>
       <ion-select [(ngModel)]="selectedPlaylist">
         <ion-select-option *ngFor="let playlist of playlists" [value]="playlist.id">
           {{ playlist.name }}
