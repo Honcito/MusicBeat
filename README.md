@@ -87,7 +87,7 @@ Explain what these tests verify and why.
 ## API Endpoints Documentation 📑
 To view and test all API endpoints, check out the Postman collection I've prepared:
 
-**[Music Beat API Endpoints Documentation](https://www.postman.com/hong66-2174/public-workspace/documentation/xdnb03l/music-beat-users?workspaceId=dc6c7131-6e30-4ca2-85a3-747039c3d3f2)**
+**[Music Beat API Endpoints Documentation](https://hong66-2174.postman.co/workspace/public-workspace~dc6c7131-6e30-4ca2-85a3-747039c3d3f2/collection/33378802-eca1a030-8806-41ab-b305-80fa4ea5818e?action=share&creator=33378802)**
 
 
 ## Deployment📦

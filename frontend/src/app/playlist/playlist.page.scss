@@ -1,22 +1,78 @@
+/* Estilos para la lista de canciones */
+ion-list {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0); /* Fondo semi-transparente */
+  padding: 0;
+  height: auto; /* Aseguramos que la lista ocupe todo el espacio necesario */
+}
+
+/* Estilos para cada item en la lista */
+ion-item {
+  background-color: rgba(253, 249, 249, 0); /* Fondo mucho más transparente para los ítems */
+  margin: 5px 0; /* Espaciado entre ítems */
+  padding: 15px; /* Espaciado interno de los ítems */
+  display: flex; /* Usar flexbox para alinear contenido */
+  align-items: flex-start; /* Alineación vertical en la parte superior */
+}
+
+/* Estilos específicos para el contenedor del botón */
+.button-background {
+  padding: 10px;
+  text-align: center;
+  background-color: transparent;
+  z-index: 999; /* Aseguramos que el contenedor del botón esté por encima */
+}
+
+/* Estilos para el encabezado */
 ion-header {
-    background-color: #f8f9fa;
-  }
-  
+  background-color: #000000ae;
+  --ion-background-color: #00000095;
+  text-align: center;
+}
+
+/* Estilos para el título */
+ion-title {
+  color: #ffffff; /* Color blanco para el título */
+  font-weight: bold;
+}
+
+/* Recomendación para una vista móvil */
+@media (max-width: 600px) {
   ion-item {
-    margin-bottom: 10px;
+    flex-direction: column; /* Cambiar a columna en móviles */
+    align-items: flex-start; /* Alinear a la izquierda */
   }
-  
+
+  .song-info {
+    margin-left: 0; /* Eliminar margen en móviles */
+  }
+
+  /* Ajustar tamaño de botones para móviles */
   ion-button {
-    margin-top: 20px;
+    display: flex;
+    font-size: 12px; /* Tamaño de fuente más pequeño para móviles */
+    padding: 5px 5px; /* Ajustar padding para botones más pequeños */
+    ;
   }
   
-  ion-list {
-    margin-top: 20px;
+  .custom-bg {
+    --background: url('/assets/images/playlistsBackground.jpg') no-repeat center center / cover;
   }
-  
-  ion-text {
+
+  ion-text p {
+    color: rgb(26, 7, 236);
+    padding-top: 15px;
     text-align: center;
-    font-size: 1.2rem;
-    color: #6c757d;
+    text-transform: uppercase;
   }
   
+  
+  .ion-text p {
+    color: white !important;
+  }
+
+
+}

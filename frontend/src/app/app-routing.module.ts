@@ -65,10 +65,6 @@ const routes: Routes = [
     loadChildren: () => import('./playlist-songs/playlist-songs.module').then(m => m.PlaylistSongsPageModule)
   },
   {
-    path: 'tabs-user',
-    loadChildren: () => import('./tabs-user/tabs-user.module').then( m => m.TabsUserPageModule)
-  },
-  {
     path: 'songs-user',
     loadChildren: () => import('./songs-user/songs-user.module').then( m => m.SongsUserPageModule)
   },

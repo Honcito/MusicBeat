@@ -12,3 +12,7 @@ ion-tab-bar {
     height: 45px; /* Asegúrate de ajustar las imágenes si cambias la altura */
   }
   
+  .custom-tab-bar ion-label {
+    margin-bottom: 5px; /* Ajusta el margen entre las etiquetas y el borde inferior */
+    margin-top: 5px;
+  }

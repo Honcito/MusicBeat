@@ -1,6 +1,6 @@
 /* Estilos para la lista de canciones */
 ion-list {
-  background-image: url('../../assets/images/songs.jpg');
+  background-image: url('../../assets/images/songsBackground.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -17,29 +17,6 @@ ion-item {
   padding: 15px; /* Espaciado interno de los ítems */
   display: flex; /* Usar flexbox para alinear contenido */
   align-items: flex-start; /* Alineación vertical en la parte superior */
-}
-
-
-/* Estilos para el botón 'Add Song' */
-.add-user-btn {
-  --background: #087029; /* Color de fondo del botón */
-  --color: white; /* Color del texto del botón */
-  --border-radius: 8px;
-  --padding-start: 16px;
-  --padding-end: 16px;
-  display: block;
-  margin: 10px auto; /* Centra el botón y le da un margen superior e inferior */
-  text-align: center;
-  font-size: 12px;
-  z-index: 999; /* Aseguramos que el botón esté encima de otros elementos */
-}
-
-/* Estilos específicos para el contenedor del botón */
-.button-background {
-  padding: 10px;
-  text-align: center;
-  background-color: transparent;
-  z-index: 999; /* Aseguramos que el contenedor del botón esté por encima */
 }
 
 /* Estilos para el encabezado */

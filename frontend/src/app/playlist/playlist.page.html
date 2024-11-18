@@ -4,7 +4,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
+<ion-content class="ion-padding custom-bg">
   <!-- Formulario para crear una nueva playlist -->
   <ion-item>
     <ion-label position="floating">Playlist Name</ion-label>
@@ -19,15 +19,15 @@
       <ion-label>{{ playlist.name }}</ion-label>
       
       <!-- Botón para ver las canciones de la playlist -->
-      <ion-button fill="outline" [routerLink]="['/song-in-list', playlist.id]">
+      <ion-button fill="outline" color="secondary" [routerLink]="['/song-in-list', playlist.id]">
         Add Songs
       </ion-button>
 
-      <ion-button fill="outline" [routerLink]="['/playlist-songs', playlist.id]">
-        Play Songs in playlist
+      <ion-button fill="outline" color="tertiary" [routerLink]="['/playlist-songs', playlist.id]">
+        Play Songs
       </ion-button>
 
-      <ion-button fill="clear" color="danger" (click)="deletePlaylist(playlist.id)">
+      <ion-button fill="outline" color="danger" (click)="deletePlaylist(playlist.id)">
         Delete
       </ion-button>
     </ion-item>
