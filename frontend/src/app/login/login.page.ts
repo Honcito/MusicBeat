@@ -17,24 +17,40 @@ export class LoginPage {
   login() {
     const loginData = {
       email: this.email,
-      password: this.password
+      password: this.password,
     };
-  
+
     this.http.post(`${environment.apiUrl}/api/users/login`, loginData).subscribe(
       (response: any) => {
         console.log('Login response:', response); // Log the entire response
-  
-        // Check if the user object exists and retrieve userId
-        if (response.user && response.user.id) {
-          localStorage.setItem('userId', response.user.id); // Store the userId
+
+        // Check if the user object exists and retrieve userId and role
+        if (response.user) {
+          const userId = response.user.id;
+          const role = response.user.role;
+
+          // Store userId and role in localStorage
+          localStorage.setItem('userId', userId);
+          localStorage.setItem('role', role);
+
+          console.log(`User logged in. ID: ${userId}, Role: ${role}`);
+
+          // Redirect based on the role
+          if (role === 'admin') {
+            this.router.navigate(['/tabs/home']); // Admin tabs
+          } else if (role === 'user') {
+            this.router.navigate(['/tabs-user/home']); // User tabs
+          } else {
+            alert('Role not recognized');
+          }
         } else {
-          console.warn('userId not found in response');
+          console.warn('User data not found in response');
         }
-  
-        localStorage.setItem('token', response.token); // Store the token
-        this.router.navigate(['/tabs/home']); // Redirect to the home page
+
+        // Store the token in localStorage
+        localStorage.setItem('token', response.token);
       },
-      error => {
+      (error) => {
         console.error('Login error:', error); // Log the error for debugging
         alert('Login failed');
       }

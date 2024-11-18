@@ -1,5 +1,6 @@
 module.exports = app => {
     const songsInList = require("../controllers/songInList.controller.js");
+    const playlist = require("../controllers/playlist.controller.js")
     const router = require("express").Router();
 
     // Añadir canción a playlist
@@ -15,7 +16,7 @@ module.exports = app => {
     router.get("/:id", songsInList.findOne);
 
     // Eliminar una canción de una playlist por ID
-    router.delete("/:id", songsInList.delete);
+    router.delete("/:playlistId/:songId", songsInList.removeSongFromPlaylist);
 
     // Prefijo de las rutas de SongInList
     app.use("/api/songInList", router);

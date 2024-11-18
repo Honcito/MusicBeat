@@ -1,0 +1,38 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>SONGS</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">SONGS</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <!-- Lista de canciones -->
+  <ion-list class="list-background">
+    <ion-item *ngFor="let song of songs">
+      <!-- imagen del álbum -->
+      <ion-thumbnail class="thumbnail" slot="end">
+        <img [src]="song.cover" alt="{{song.title}} Album Cover" />
+        <div class="icon-container">
+          <!-- En el HTML usa togglePlayPause -->
+          <ion-icon name="play" size="large" class="custom-icon" (click)="togglePlayPause(song.url)"></ion-icon>
+          <ion-icon name="pause" size="large" class="custom-icon" (click)="togglePlayPause(song.url)"></ion-icon>
+        </div>
+        
+        
+      </ion-thumbnail>
+
+      <div class="song-info">
+        <h1><strong>Title: </strong>{{song.title}}</h1>
+        <p><strong>Artist: </strong>{{song.artist}}</p>
+        <p><strong>Album: </strong>{{song.album}}</p>
+        <p><strong>Duration: </strong>{{song.length}}</p>
+      </div>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

@@ -14,7 +14,7 @@ module.exports = app => {
   router.post("/:playlistId/songs/:songId", playlists.addSongToPlaylist);
 
   // Eliminar una canción de la playlist
-  router.delete("/:playlistId/songs/:songId", playlists.removeSongFromPlaylist);
+  //router.delete("/:playlistId/songs/:songId", playlists.removeSongFromPlaylist);
 
   // Ruta para eliminar una playlist por ID
   router.delete("/:id", playlists.delete);

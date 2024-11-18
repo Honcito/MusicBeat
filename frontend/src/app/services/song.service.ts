@@ -38,5 +38,8 @@ export class SongService {
     return this.http.get<any[]>(`http://localhost:8080/api/songInList/playlist/${playlistId}`);
   }
 
-  
+   // Método para eliminar una canción de una playlist
+   removeSongFromPlaylist(playlistId: number, songId: number): Observable<void> {
+    return this.http.delete<void>(`http://localhost:8080/api/songInList/${playlistId}/${songId}`);
+}
 }

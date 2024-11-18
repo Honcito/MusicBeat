@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { SongService } from '../services/song.service';  // Asegúrate de tener este servicio para obtener las canciones
 import { catchError } from 'rxjs/operators'; // Importar catchError para manejar errores
 import { of } from 'rxjs'; // Importar of para manejar errores con un observable vacío
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-playlist-songs',
@@ -17,10 +18,12 @@ export class PlaylistSongsPage implements OnInit {
   isPlaying: boolean = false;  // Para saber si la canción está sonando
   errorMessage: string = '';  // Mensaje de error si hay algún problema
   audio: HTMLAudioElement | null = null; // Instancia del audio actual
+  apiUrl: string = 'http://localhost:8080/api'
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private songService: SongService  // Servicio para obtener canciones
+    private songService: SongService,  // Servicio para obtener canciones
+    private http: HttpClient
   ) {}
 
   ngOnInit() {
@@ -133,4 +136,19 @@ export class PlaylistSongsPage implements OnInit {
     this.currentSongIndex = 0;  // Empezar desde la primera canción después de mezclar
     this.playSong(this.currentSongIndex);  // Reproducir la primera canción del nuevo orden
   }
+
+  removeSongFromPlaylist(playlistId: number, songId: number) {
+    this.songService.removeSongFromPlaylist(playlistId, songId).subscribe(
+      () => {
+        alert('Song removed from playlist');
+        // Elimina la canción localmente para reflejar el cambio en la UI
+        this.songs = this.songs.filter(song => song.id !== songId);
+      },
+      (error) => {
+        console.error('Error deleting song from playlist:', error);
+        alert('There was a problem removing the song.');
+      }
+    );
+  }
+  
 }
