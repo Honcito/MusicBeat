@@ -192,24 +192,67 @@ exports.deleteAll = (req, res) => {
         });
 };
 
-// Esta función puede devolver la información del perfil del usuario, por ejemplo, de la base de datos o del JWT.
-/*exports.getUserProfile = (req, res) => {
-    const userId = req.user.id; // Asegúrate de que 'req.user' tiene los datos correctos del usuario autenticado
+// Registro de un user no autenticado
+const registerUser = async (req, res) => {
+    const { username, email, password, profilePicture } = req.body;
+  
+    if (!username || !email || !password) {
+      return res.status(400).json({ message: 'All fields are required.' });
+    }
+  
+    try {
+      const hashedPassword = await bcrypt.hash(password, 10);
+  
+      const newUser = {
+        username,
+        email,
+        password: hashedPassword,
+        role: 'user', // Rol predeterminado
+        profilePicture: profilePicture || null,
+      };
+  
+      await User.create(newUser);
+  
+      res.status(201).json({ message: 'User registered successfully!' });
+    } catch (error) {
+      res.status(500).json({ message: 'Error registering user.', error });
+    }
+  };
 
-    User.findByPk(userId)
-        .then(user => {
-            if (user) {
-                res.status(200).json(user);
-            } else {
-                res.status(404).json({ message: "User not found" });
-            }
-        })
-        .catch(err => {
-            res.status(500).json({ message: "Error retrieving user profile", error: err.message });
-        })
-                .catch(err => {
-                    res.status(500).send({ message: 'Error during authentication.' });
-                });
-        };
-        
-*/
+  // Controlador para el registro público
+exports.register = async (req, res) => {
+    try {
+        const { username, email, password } = req.body;
+
+        // Validaciones básicas
+        if (!username || !email || !password) {
+            return res.status(400).json({ message: 'All fields are required.' });
+        }
+
+        // Verificar si el usuario ya existe
+        const existingUser = await User.findOne({ where: { email } });
+        if (existingUser) {
+            return res.status(400).json({ message: 'User with this email already exists.' });
+        }
+
+        // Encriptar contraseña
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        // Manejo de la imagen subida
+        const filename = req.file ? req.file.filename : null;
+
+        // Crear un nuevo usuario con rol predeterminado "user"
+        const newUser = await User.create({
+            username,
+            email,
+            password: hashedPassword,
+            role: "user", // Rol predeterminado para usuarios registrados públicamente
+            filename, // Imagen de perfil (si se cargó)
+        });
+
+        res.status(201).json({ message: 'User registered successfully!', user: newUser });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error registering user.', error });
+    }
+};

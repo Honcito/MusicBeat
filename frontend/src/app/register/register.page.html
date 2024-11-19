@@ -1,0 +1,62 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>ADD USER</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <form (ngSubmit)="registerUser()">
+    
+    <!-- Sección de imagen -->
+    <ion-grid>
+      <ion-row class="ion-align-items-center">
+        <ion-col size="6">
+          <!-- Mostrar la imagen si ya se cargó -->
+          <ion-img class="photo-frame" *ngIf="capturedPhoto" [src]="capturedPhoto" (click)="takePhoto()"></ion-img>
+          
+          <!-- Mostrar la imagen del usuario si ya se creó, y la URL está disponible -->
+          <ion-img class="photo-frame" *ngIf="userImageUrl" [src]="userImageUrl" alt="User Profile Picture"></ion-img>
+
+          <!-- Mostrar un placeholder si no hay foto capturada ni imagen de usuario -->
+          <ion-img class="photo-frame" *ngIf="!capturedPhoto && !userImageUrl" src="../../assets/No-Image-Placeholder.svg" (click)="takePhoto()"></ion-img>
+        </ion-col>
+        <ion-col size="6">
+          <ion-button color="primary" fill="outline" (click)="takePhoto()">
+            <ion-icon slot="start" name="camera-outline"></ion-icon>
+            Take a photo
+          </ion-button>
+          <ion-button color="primary" fill="outline" (click)="pickImage()">
+            <ion-icon slot="start" name="image-outline"></ion-icon>
+            Pick an image
+          </ion-button>
+          <ion-button color="danger" fill="outline" (click)="discardImage()">
+            <ion-icon slot="start" name="aperture"></ion-icon>
+            Discard image
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <!-- Formulario de usuario -->
+    <ion-item>
+      <ion-label position="floating">Username</ion-label>
+      <ion-input [(ngModel)]="user.username" name="username" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Email</ion-label>
+      <ion-input type="email" [(ngModel)]="user.email" name="email" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Password</ion-label>
+      <ion-input type="password" [(ngModel)]="user.password" name="password" required></ion-input>
+    </ion-item>
+
+
+    <div class="center-button">
+      <ion-button class="large-button" type="submit">Register</ion-button>
+    </div>
+
+  </form>
+</ion-content>

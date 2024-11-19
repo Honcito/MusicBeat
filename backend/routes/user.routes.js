@@ -30,3 +30,6 @@ router.delete("/", users.deleteAll);
 
 // Exportar el router, no app.use() aquí
 module.exports = router;
+
+// Ruta pública para registro de usuarios
+router.post("/register", upload.single('image'), users.register); 

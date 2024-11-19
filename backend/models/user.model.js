@@ -27,7 +27,7 @@ module.exports = (sequelize, Sequelize) => {
             },
         },
         filename: {
-            type: Sequelize.STRING, // Este es el campo donde guardarás la ruta de la imagen
+            type: Sequelize.STRING, // Este es el campo donde se guardará la ruta de la imagen
         },
     }, {
         timestamps: true, // Esto asegura las columnas `createdAt` y `updatedAt`

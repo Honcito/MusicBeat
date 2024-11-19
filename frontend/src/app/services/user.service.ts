@@ -32,5 +32,9 @@ export class UserService {
     return this.http.put<any>(`${this.apiUrl}/${id}`, user);
   }
 
+   // Método para registrar un nuevo usuario sin registro previo
+   registerUser(user: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/register`, user);
+  }
   
 }
