@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-users',
@@ -10,7 +11,7 @@ import { Router } from '@angular/router';
 export class UsersPage implements OnInit {
   users: any[] = []; // Declare the users array
 
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(private userService: UserService, private router: Router, private authService: AuthService) {}
 
   ngOnInit() {
     this.loadUsers();
@@ -39,4 +40,5 @@ export class UsersPage implements OnInit {
   addUser() {
     this.router.navigate(['/create-users']);
   }
+
 }

@@ -1,3 +1,4 @@
+
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
@@ -65,7 +66,17 @@ export class AuthService {
 
   // Método para cerrar sesión
   logout() {
-    localStorage.removeItem('token'); // Elimina el token del almacenamiento
-    localStorage.removeItem('userId'); // Elimina el userId también
+    this.http.post(`${environment.apiUrl}/api/users/logout`, {}).subscribe({
+      next: (response) => {
+        console.log('Logout exitoso');
+        console.log('Token antes de eliminar:', localStorage.getItem('token'));
+        console.log('UserId antes de eliminar:', localStorage.getItem('userId'));
+        localStorage.removeItem('token');  // Limpia el token del almacenamiento
+        localStorage.removeItem('userId');  // Limpia también el userId
+        console.log('Token después de eliminar:', localStorage.getItem('token'));
+        console.log('UserId después de eliminar:', localStorage.getItem('userId'));
+      },
+      error: (err) => console.error('Error al hacer logout:', err),
+    });
   }
 }
