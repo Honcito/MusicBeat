@@ -89,6 +89,8 @@ To view and test all API endpoints, check out the Postman collection I've prepar
 
 **[Music Beat API Endpoints Documentation](https://hong66-2174.postman.co/workspace/public-workspace~dc6c7131-6e30-4ca2-85a3-747039c3d3f2/collection/33378802-eca1a030-8806-41ab-b305-80fa4ea5818e?action=share&creator=33378802)**
 
+**[Music Beat API Documentation](https://documenter.getpostman.com/view/33378802/2sAYBRGEPF)**
+
 
 ## Deployment📦
 
