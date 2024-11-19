@@ -140,7 +140,7 @@ export class PlaylistSongsPage implements OnInit {
   removeSongFromPlaylist(playlistId: number, songId: number) {
     this.songService.removeSongFromPlaylist(playlistId, songId).subscribe(
       () => {
-        alert('Song removed from playlist');
+        alert('Song removed from playlist.');
         // Elimina la canción localmente para reflejar el cambio en la UI
         this.songs = this.songs.filter(song => song.id !== songId);
       },

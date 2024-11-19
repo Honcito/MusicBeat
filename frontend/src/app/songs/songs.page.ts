@@ -32,6 +32,7 @@ export class SongsPage implements OnInit {
   deleteSong(id: number) {
     this.songService.deleteSong(id).subscribe(() => {
       this.loadSongs(); // Recargar la lista después de eliminar
+      alert('Song deleted successfully!.');
     });
   }
 

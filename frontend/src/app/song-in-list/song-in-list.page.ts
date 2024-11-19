@@ -61,7 +61,7 @@ export class SongInListPage implements OnInit {
   // Función para añadir canción a una playlist
   addSongToPlaylist(songId: number) {
     if (!this.selectedPlaylist) {
-      alert('Por favor, selecciona una playlist.');
+      alert('Please, select a playlist.');
       return;
     }
 
@@ -83,21 +83,5 @@ export class SongInListPage implements OnInit {
       );
   }
 
-  //  // Función para eliminar una canción de una playlist
-  //  removeSongFromPlaylist(playlistId: string, songId: number) {
-  //   // Hacemos la solicitud DELETE a la API para eliminar la canción de la playlist
-  //   this.http.delete(`http://localhost:8080/api/songInList/${playlistId}/${songId}`)
-  //     .subscribe(
-  //       (response) => {
-  //         alert('Canción eliminada de la playlist');
-  //         // Recargamos las canciones para reflejar el cambio
-  //         this.loadSongs();
-  //       },
-  //       (error) => {
-  //         console.error('Error deleting song from playlist:', error);
-  //         alert('Hubo un problema al eliminar la canción.');
-  //       }
-  //     );
-  // }
 }
 

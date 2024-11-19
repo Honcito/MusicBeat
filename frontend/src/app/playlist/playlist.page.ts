@@ -5,6 +5,7 @@ import { PlaylistService } from '../services/playlist.service';
 import { NavController } from '@ionic/angular';
 import { AuthService } from '../services/auth.service';
 
+
 @Component({
   selector: 'app-playlist',
   templateUrl: './playlist.page.html',
@@ -56,7 +57,7 @@ export class PlaylistPage implements OnInit {
   // Método para crear una playlist
   createPlaylist() {
     if (this.newPlaylistName.trim() === '') {
-      alert('Por favor, ingresa un nombre para la playlist');
+      alert('Please, insert a name for the playlist.');
       return;
     }
 
@@ -67,7 +68,7 @@ export class PlaylistPage implements OnInit {
 
     // Verifica que el ID de usuario y el nombre de la playlist sean válidos
     if (!userId) {
-      alert('Usuario no autenticado. No se puede crear la playlist.');
+      alert('User not authenticated. Could not create the playlist.');
       return;
     }
 
@@ -87,6 +88,7 @@ export class PlaylistPage implements OnInit {
         return response.json();
       })
       .then((data) => {
+        alert('Playlist created successfully!');
         console.log('Playlist creada:', data); // Mostrar la respuesta del servidor
         this.loadPlaylists(); // Recargar las playlists
         this.newPlaylistName = ''; // Limpiar el campo de texto
@@ -107,6 +109,7 @@ export class PlaylistPage implements OnInit {
     this.playlistService.deletePlaylist(id).subscribe(
       (response) => {
         this.loadPlaylists(); // Recargar las playlists
+        alert('Playlist deleted successfully!.');
       },
       (error) => {
         console.error('Error al eliminar la playlist:', error);
